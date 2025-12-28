@@ -6,4 +6,9 @@ export default createNativeStackNavigator({
     Home: {
       screen: Home,
     },
-}});
+  },
+  screenOptions: {
+    headerBackButtonMenuEnabled: false,
+    headerBackButtonDisplayMode: "minimal",
+  },
+});
