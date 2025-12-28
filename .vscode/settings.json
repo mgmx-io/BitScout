@@ -7,6 +7,9 @@
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
   },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "tailwindCSS.classAttributes": [
     "class",
     "className",
@@ -37,7 +40,5 @@
     "ListFooterComponentClassName",
     "ListHeaderComponentClassName"
   ],
-  "tailwindCSS.classFunctions": [
-    "useResolveClassNames"
-  ],
+  "tailwindCSS.classFunctions": ["useResolveClassNames"]
 }
