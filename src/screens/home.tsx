@@ -1,8 +1,11 @@
-import { useGetPrices } from "@/api/queries";
+import { useGetHistoricalPrice } from "@/api/queries";
 import { Text, View } from "react-native";
 
 export function Home() {
-  const query = useGetPrices();
+  const query = useGetHistoricalPrice({
+    currency: "USD",
+    timestamp: 1760000000,
+  });
 
   return (
     <View className="bg-background flex-1">
