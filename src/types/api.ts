@@ -21,3 +21,21 @@ export type GetHistoricalPriceRequest = {
   currency?: keyof ExchangeRate;
   timestamp?: number;
 };
+
+export type GetAddressRequest = {
+  address: string;
+};
+
+export type AddressStats = {
+  funded_txo_count: number;
+  funded_txo_sum: number;
+  spent_txo_count: number;
+  spent_txo_sum: number;
+  tx_count: number;
+};
+
+export type GetAddressResponse = {
+  address: string;
+  chain_stats: AddressStats;
+  mempool_stats: AddressStats;
+};

@@ -1,20 +1,27 @@
 import { useAddresses } from "@/hooks/use-addresses";
-import { useWallets } from "@/hooks/use-wallets";
+import { useBalance } from "@/hooks/use-balance";
+import { useAppStore } from "@/stores";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "heroui-native";
 import { Text, View } from "react-native";
 
 export function Wallet() {
   const addresses = useAddresses();
-  const wallets = useWallets();
   const { navigate } = useNavigation();
-
-  console.log({ wallets });
+  const { removeAddress } = useAppStore();
+  const balance = useBalance();
 
   return (
     <View className="flex-1 items-center justify-center">
-      {addresses.map(({ address, id }) => (
-        <Text key={id}>{address}</Text>
+      <Text>{balance}</Text>
+      {addresses.map(({ id, address }) => (
+        <Text
+          key={id}
+          className="text-foreground"
+          onPress={() => removeAddress(id)}
+        >
+          {address}
+        </Text>
       ))}
       <Button onPress={() => navigate("Track")}>track new address</Button>
     </View>

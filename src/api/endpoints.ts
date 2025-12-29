@@ -1,5 +1,7 @@
 import { api } from "@/config/api";
 import {
+  GetAddressRequest,
+  GetAddressResponse,
   GetHistoricalPriceRequest,
   GetHistoricalPriceResponse,
   GetPricesResponse,
@@ -18,6 +20,14 @@ export async function getHistoricalPrice(request?: GetHistoricalPriceRequest) {
     {
       params: request,
     },
+  );
+  return data;
+}
+
+// https://mempool.space/api/address/1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv
+export async function getAddress(request: GetAddressRequest) {
+  const { data } = await api.get<GetAddressResponse>(
+    `/address/${request.address}`,
   );
   return data;
 }
