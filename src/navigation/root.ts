@@ -20,8 +20,7 @@ export default createNativeStackNavigator({
     Track: {
       screen: Track,
       options: {
-        title: "Track",
-        presentation: "modal",
+        title: "Track Address",
       },
     },
   },

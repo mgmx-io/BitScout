@@ -38,8 +38,10 @@ export type GetAddressResponse = {
 
 export type GetValidateAddressResponse = {
   isvalid: boolean;
-  address: string;
-  scriptPubKey: string;
-  isscript: boolean;
-  iswitness: boolean;
+  address?: string;
+  scriptPubKey?: string;
+  isscript?: boolean;
+  iswitness?: boolean;
+  error?: string;
+  error_locations?: number[];
 };
