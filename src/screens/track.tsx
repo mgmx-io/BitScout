@@ -1,14 +1,21 @@
+import { useValidateAddress } from "@/api/queries";
 import { useAppStore } from "@/stores";
-import { Button, TextField } from "heroui-native";
+import { Button, Spinner, TextField } from "heroui-native";
 import { useState } from "react";
 import { View } from "react-native";
 
 export function Track() {
   const [value, setValue] = useState("");
   const { trackAddress } = useAppStore();
+  const { mutate, isPending } = useValidateAddress();
 
   const handleSubmit = () => {
-    trackAddress(value);
+    mutate(value, {
+      onSuccess(data) {
+        if (!data.isvalid) return;
+        trackAddress(value);
+      },
+    });
   };
 
   return (
@@ -21,7 +28,13 @@ export function Track() {
           placeholder="enter your btc address"
         />
       </TextField>
-      <Button onPress={handleSubmit}>Submit</Button>
+      <Button
+        variant={isPending ? "secondary" : "primary"}
+        onPress={handleSubmit}
+        isDisabled={isPending}
+      >
+        {isPending ? <Spinner /> : "Submit"}
+      </Button>
     </View>
   );
 }

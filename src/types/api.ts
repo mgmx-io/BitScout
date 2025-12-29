@@ -22,10 +22,6 @@ export type GetHistoricalPriceRequest = {
   timestamp?: number;
 };
 
-export type GetAddressRequest = {
-  address: string;
-};
-
 export type AddressStats = {
   funded_txo_count: number;
   funded_txo_sum: number;
@@ -38,4 +34,12 @@ export type GetAddressResponse = {
   address: string;
   chain_stats: AddressStats;
   mempool_stats: AddressStats;
+};
+
+export type GetValidateAddressResponse = {
+  isvalid: boolean;
+  address: string;
+  scriptPubKey: string;
+  isscript: boolean;
+  iswitness: boolean;
 };

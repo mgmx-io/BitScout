@@ -1,10 +1,10 @@
 import { api } from "@/config/api";
 import {
-  GetAddressRequest,
   GetAddressResponse,
   GetHistoricalPriceRequest,
   GetHistoricalPriceResponse,
   GetPricesResponse,
+  GetValidateAddressResponse,
 } from "@/types/api";
 
 // https://mempool.space/api/v1/prices
@@ -25,9 +25,15 @@ export async function getHistoricalPrice(request?: GetHistoricalPriceRequest) {
 }
 
 // https://mempool.space/api/address/1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv
-export async function getAddress(request: GetAddressRequest) {
-  const { data } = await api.get<GetAddressResponse>(
-    `/address/${request.address}`,
+export async function getAddress(address: string) {
+  const { data } = await api.get<GetAddressResponse>(`/address/${address}`);
+  return data;
+}
+
+// https://mempool.space/api/v1/validate-address/1KFHE7w8BhaENAswwryaoccDb6qcT6DbYY
+export async function getValidateAddress(address: string) {
+  const { data } = await api.get<GetValidateAddressResponse>(
+    `/v1/validate-address/${address}`,
   );
   return data;
 }

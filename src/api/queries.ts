@@ -1,7 +1,12 @@
 import { useAddresses } from "@/hooks/use-addresses";
 import { GetHistoricalPriceRequest } from "@/types/api";
-import { useQueries, useQuery } from "@tanstack/react-query";
-import { getAddress, getHistoricalPrice, getPrices } from "./endpoints";
+import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
+import {
+  getAddress,
+  getHistoricalPrice,
+  getPrices,
+  getValidateAddress,
+} from "./endpoints";
 
 export function useGetPrices() {
   return useQuery({
@@ -23,7 +28,13 @@ export function useGetAddresses() {
   return useQueries({
     queries: addresses.map((address) => ({
       queryKey: ["address", address],
-      queryFn: () => getAddress({ address }),
+      queryFn: () => getAddress(address),
     })),
+  });
+}
+
+export function useValidateAddress() {
+  return useMutation({
+    mutationFn: getValidateAddress,
   });
 }
