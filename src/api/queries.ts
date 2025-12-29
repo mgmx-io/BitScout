@@ -22,6 +22,13 @@ export function useGetHistoricalPrice(request?: GetHistoricalPriceRequest) {
   });
 }
 
+export function useGetAddress(address: string) {
+  return useQuery({
+    queryKey: ["address", address],
+    queryFn: () => getAddress(address),
+  });
+}
+
 export function useGetAddresses() {
   const addresses = useAddresses().map((a) => a.address);
 
