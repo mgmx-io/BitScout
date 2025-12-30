@@ -3,3 +3,5 @@ export type Address = {
   walletId: string;
   address: string;
 };
+
+export type Unit = "btc" | "sats" | "usd";
