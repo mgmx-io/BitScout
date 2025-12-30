@@ -34,7 +34,6 @@ export const useAppStore = create<State>()(
 
       trackAddress: (address: string) => {
         const walletId = get().selectedId;
-        if (!walletId) return;
 
         set((s) => {
           const exists = s.addresses.some(

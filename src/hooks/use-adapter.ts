@@ -7,7 +7,7 @@ export function useAdapter(): ReactNavigation.Theme {
   const primary = useThemeColor("accent");
   const text = useThemeColor("foreground");
   const background = useThemeColor("background");
-  const card = useThemeColor("surface");
+  // const card = useThemeColor("surface");
   const border = useThemeColor("border");
 
   return {
@@ -15,7 +15,7 @@ export function useAdapter(): ReactNavigation.Theme {
       background,
       primary,
       border,
-      card,
+      card: background,
       text,
       notification: primary,
     },

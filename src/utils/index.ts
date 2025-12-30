@@ -19,6 +19,6 @@ export function buildWalletName(wallets: string[], selectedId: string) {
 }
 
 export function compactAddress(address: string) {
-  const len = 5;
-  return address.slice(0, len) + "-" + address.slice(-len);
+  const len = 6;
+  return address.slice(0, len) + " ... " + address.slice(-len);
 }

@@ -1,3 +1,4 @@
+import { WalletSwitch } from "@/components/wallet-switch";
 import { Address } from "@/screens/address";
 import { Track } from "@/screens/track";
 import { Wallet } from "@/screens/wallet";
@@ -8,7 +9,9 @@ export default createNativeStackNavigator({
     Wallet: {
       screen: Wallet,
       options: {
-        title: "Wallet",
+        title: "",
+        headerLeft: WalletSwitch,
+        headerShadowVisible: false,
       },
     },
     Address: {

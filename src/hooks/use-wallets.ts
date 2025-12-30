@@ -16,6 +16,10 @@ export function useWallets() {
       ids.add(selectedId);
     }
 
-    return Array.from(ids);
+    return Array.from(ids).map((id, index) => ({
+      id,
+      name: `Wallet #${index + 1}`,
+      selected: id === selectedId,
+    }));
   }, [addresses, selectedId]);
 }
