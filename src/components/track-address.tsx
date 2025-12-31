@@ -68,7 +68,7 @@ export function TrackAddress() {
   return (
     <BottomSheet isOpen={isOpen} onOpenChange={setIsOpen}>
       <BottomSheet.Trigger asChild>
-        <Button className="self-end" variant="tertiary">
+        <Button className="absolute right-4 bottom-4 z-10" variant="tertiary">
           <Icon name="add" size={20} colorClassName="accent-foreground" />
           <Button.Label>Address</Button.Label>
         </Button>
