@@ -7,7 +7,7 @@ export function WalletSwitch() {
   const selected = wallets.find((wallet) => wallet.selected)!;
 
   return (
-    <TouchableOpacity className="flex-row items-center gap-2 pr-2 pl-4">
+    <TouchableOpacity className="bg-surface ml-4 h-8 flex-row items-center gap-2 rounded pr-2 pl-4">
       <Text className="text-foreground font-bold">{selected.name}</Text>
       <Icon name="unfold-more" size={18} colorClassName="accent-foreground" />
     </TouchableOpacity>

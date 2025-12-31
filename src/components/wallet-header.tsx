@@ -19,13 +19,13 @@ export function WalletHeader() {
       </View>
       <View className="flex-row gap-2">
         <TouchableOpacity
-          className="bg-surface w-12 items-center justify-center rounded py-2"
+          className="bg-surface h-8 w-12 items-center justify-center rounded"
           onPress={cycleUnit}
         >
           <Text className="text-foreground font-bold">{unit}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className="bg-surface w-12 items-center justify-center rounded py-2"
+          className="bg-surface h-8 w-12 items-center justify-center rounded"
           onPress={toggleVisibility}
         >
           <Icon
