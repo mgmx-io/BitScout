@@ -21,7 +21,7 @@ export function TrackAddress() {
     toast.show({
       variant: "default",
       label: error,
-      icon: <Icon name="error" size={24} colorClassName="accent-danger" />,
+      icon: <Icon name="error" size={20} colorClassName="accent-danger" />,
       onShow: () => setValue(""),
     });
   };
@@ -34,7 +34,7 @@ export function TrackAddress() {
       variant: "default",
       label: "Address added",
       description: addr,
-      icon: <Icon name="check" size={24} colorClassName="accent-success" />,
+      icon: <Icon name="check" size={20} colorClassName="accent-success" />,
       onShow: () => setValue(""),
     });
   };

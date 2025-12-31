@@ -30,7 +30,7 @@ export function Wallet() {
             </AddressContext>
           )}
           ListHeaderComponent={WalletHeader}
-          renderSectionHeader={WalletSection}
+          renderSectionHeader={() => <WalletSection />}
           ItemSeparatorComponent={Divider}
         />
       </ScrollShadow>

@@ -29,7 +29,7 @@ export function WalletSwitch() {
           <Text className="text-foreground font-bold">{selected.name}</Text>
           <Icon
             name="unfold-more"
-            size={18}
+            size={20}
             colorClassName="accent-foreground"
           />
         </TouchableOpacity>
@@ -57,7 +57,7 @@ export function WalletSwitch() {
                   {wallet.selected && (
                     <Icon
                       name="check"
-                      size={18}
+                      size={20}
                       colorClassName="accent-foreground"
                     />
                   )}
@@ -66,7 +66,7 @@ export function WalletSwitch() {
             </View>
 
             <Button variant="tertiary" onPress={handleCreateWallet}>
-              <Icon name="add" size={18} colorClassName="accent-foreground" />
+              <Icon name="add" size={20} colorClassName="accent-foreground" />
               <Button.Label>New wallet</Button.Label>
             </Button>
           </View>

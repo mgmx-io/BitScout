@@ -27,7 +27,7 @@ export function AddressContext(props: PropsWithChildren<Props>) {
         variant: "default",
         label: "Unable to open explorer",
         description: url,
-        icon: <Icon name="error" size={24} colorClassName="accent-danger" />,
+        icon: <Icon name="error" size={20} colorClassName="accent-danger" />,
       });
     }
   };
@@ -38,7 +38,7 @@ export function AddressContext(props: PropsWithChildren<Props>) {
       variant: "default",
       label: "Address copied to clipboard!",
       description: address,
-      icon: <Icon name="check" size={24} colorClassName="accent-success" />,
+      icon: <Icon name="check" size={20} colorClassName="accent-success" />,
     });
   };
 
@@ -48,7 +48,7 @@ export function AddressContext(props: PropsWithChildren<Props>) {
       variant: "default",
       label: "Address removed!",
       description: address,
-      icon: <Icon name="check" size={24} colorClassName="accent-success" />,
+      icon: <Icon name="check" size={20} colorClassName="accent-success" />,
     });
   };
 

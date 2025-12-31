@@ -30,7 +30,7 @@ export function WalletHeader() {
         >
           <Icon
             name={visible ? "visibility-off" : "visibility"}
-            size={18}
+            size={20}
             colorClassName="accent-foreground"
           />
         </TouchableOpacity>

@@ -25,7 +25,7 @@ export function AddressCard(props: Props) {
     >
       <Icon
         name="account-balance-wallet"
-        size={18}
+        size={20}
         colorClassName="accent-foreground"
       />
       <Text className="text-foreground flex-1">{compactAddress(address)}</Text>
