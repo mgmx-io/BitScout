@@ -1,5 +1,4 @@
 import { GetAddressResponse } from "@/types/api";
-import { Unit } from "@/types/misc";
 import { Big } from "big.js";
 
 export function computeBalance(data: GetAddressResponse | null) {
@@ -53,28 +52,4 @@ export function satsToBtc(sats: Big) {
 
 export function satsToUsd(sats: Big, price: Big) {
   return satsToBtc(sats).times(price);
-}
-
-export function displayValue({
-  sats,
-  unit,
-  visible,
-  price,
-}: {
-  sats: Big;
-  unit: Unit;
-  visible: boolean;
-  price: Big;
-}) {
-  if (!visible) return "* * * * *";
-
-  switch (unit) {
-    case "btc":
-      return `${formatBtc(satsToBtc(sats))} BTC`;
-    case "usd":
-      return formatUsd(satsToUsd(sats, price));
-    case "sats":
-    default:
-      return `${formatSats(sats)} sats`;
-  }
 }

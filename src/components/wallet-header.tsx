@@ -6,7 +6,7 @@ import Icon from "./icon";
 
 export function WalletHeader() {
   const balance = useBalance();
-  const { unit, cycleUnit, toggleVisibility } = useCurrencyStore();
+  const { unit, visible, cycleUnit, toggleVisibility } = useCurrencyStore();
   const displayValue = useDisplayValue(balance);
 
   return (
@@ -22,14 +22,14 @@ export function WalletHeader() {
           className="bg-surface w-12 items-center justify-center rounded py-2"
           onPress={cycleUnit}
         >
-          <Text className="text-foreground">{unit}</Text>
+          <Text className="text-foreground font-bold">{unit}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           className="bg-surface w-12 items-center justify-center rounded py-2"
           onPress={toggleVisibility}
         >
           <Icon
-            name="visibility"
+            name={visible ? "visibility-off" : "visibility"}
             size={18}
             colorClassName="accent-foreground"
           />
