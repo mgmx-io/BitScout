@@ -1,10 +1,11 @@
 import { useValidateAddress } from "@/api/queries";
 import { useAppStore } from "@/stores";
+import { compactAddress } from "@/utils";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import * as Clipboard from "expo-clipboard";
 import { BottomSheet, Button, Spinner, useToast } from "heroui-native";
 import { useMemo, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { BottomSheetBlurOverlay } from "./blur-overlay";
 import Icon from "./icon";
 
@@ -18,9 +19,22 @@ export function TrackAddress() {
 
   const handleError = (error: string) => {
     toast.show({
-      variant: "danger",
+      variant: "default",
       label: error,
       icon: <Icon name="error" size={24} colorClassName="accent-danger" />,
+      onShow: () => setValue(""),
+    });
+  };
+
+  const handleSuccess = (addr: string) => {
+    trackAddress(addr);
+    setIsOpen(false);
+    setValue("");
+    toast.show({
+      variant: "default",
+      label: "Address added",
+      description: addr,
+      icon: <Icon name="check" size={24} colorClassName="accent-success" />,
       onShow: () => setValue(""),
     });
   };
@@ -32,9 +46,7 @@ export function TrackAddress() {
     mutate(addr, {
       onSuccess({ isvalid }) {
         if (isvalid) {
-          trackAddress(addr);
-          setIsOpen(false);
-          setValue("");
+          handleSuccess(addr);
         } else {
           handleError("Invalid address");
         }
@@ -66,12 +78,17 @@ export function TrackAddress() {
         <BottomSheetBlurOverlay />
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
+            <Text className="text-foreground px-4 text-lg">
+              Enter a public Bitcoin address
+            </Text>
             <View className="bg-field h-12 flex-row items-center rounded-full pr-2 pl-4">
               <BottomSheetTextInput
                 value={value}
                 onChangeText={setValue}
-                className="flex-1"
-                placeholder="enter bitcoin address"
+                className="text-field-foreground flex-1"
+                placeholder={compactAddress(
+                  "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+                )}
                 autoComplete="off"
                 autoCapitalize="none"
                 autoCorrect={false}
