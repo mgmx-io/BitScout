@@ -19,6 +19,8 @@ export function AddressCard(props: Props) {
   return (
     <TouchableOpacity
       className="flex-row items-center gap-4 p-4"
+      delayLongPress={100}
+      onLongPress={() => {}}
       onPress={() => navigate("Address")}
     >
       <Icon
