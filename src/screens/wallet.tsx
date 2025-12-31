@@ -1,13 +1,12 @@
 import { AddressCard } from "@/components/address-card";
+import { TrackAddress } from "@/components/track-address";
 import { WalletHeader } from "@/components/wallet-header";
 import { useAddresses } from "@/hooks/use-addresses";
-import { useNavigation } from "@react-navigation/native";
-import { Button, Divider } from "heroui-native";
+import { Divider } from "heroui-native";
 import { FlatList, View } from "react-native";
 
 export function Wallet() {
   const addresses = useAddresses();
-  const { navigate } = useNavigation();
 
   return (
     <View className="pb-safe flex-1 px-4">
@@ -19,9 +18,7 @@ export function Wallet() {
         ListHeaderComponent={WalletHeader}
         ItemSeparatorComponent={Divider}
       />
-      <Button variant="tertiary" onPress={() => navigate("Track")}>
-        Track address
-      </Button>
+      <TrackAddress />
     </View>
   );
 }

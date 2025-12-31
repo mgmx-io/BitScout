@@ -6,8 +6,10 @@ import { useFocusManager } from "@/hooks/use-focus-manager";
 import { useOnlineManager } from "@/hooks/use-online-manager";
 import { HeroUINativeProvider } from "heroui-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { KeyboardProvider } from "react-native-keyboard-controller";
-import { SafeAreaListener } from "react-native-safe-area-context";
+import {
+  SafeAreaListener,
+  SafeAreaProvider,
+} from "react-native-safe-area-context";
 import { Uniwind } from "uniwind";
 
 export function App() {
@@ -17,13 +19,13 @@ export function App() {
   return (
     <GestureHandlerRootView>
       <SafeAreaListener onChange={({ insets }) => Uniwind.updateInsets(insets)}>
-        <HeroUINativeProvider>
-          <KeyboardProvider>
+        <SafeAreaProvider>
+          <HeroUINativeProvider>
             <QueryProvider>
               <Navigation />
             </QueryProvider>
-          </KeyboardProvider>
-        </HeroUINativeProvider>
+          </HeroUINativeProvider>
+        </SafeAreaProvider>
       </SafeAreaListener>
     </GestureHandlerRootView>
   );
