@@ -4,7 +4,7 @@ import { Address } from "@/types/misc";
 import * as Clipboard from "expo-clipboard";
 import { useToast } from "heroui-native";
 import { PropsWithChildren } from "react";
-import { Text, View } from "react-native";
+import { Linking, Text, View } from "react-native";
 import Icon from "./icon";
 
 type Props = Address;
@@ -13,6 +13,24 @@ export function AddressContext(props: PropsWithChildren<Props>) {
   const { id, address, children } = props;
   const { toast } = useToast();
   const { removeAddress } = useAppStore();
+
+  const handleExplorer = async () => {
+    const url = `https://mempool.space/address/${address}`;
+    try {
+      const canOpen = await Linking.canOpenURL(url);
+      if (!canOpen) {
+        throw new Error("Cannot open URL");
+      }
+      await Linking.openURL(url);
+    } catch {
+      toast.show({
+        variant: "default",
+        label: "Unable to open explorer",
+        description: url,
+        icon: <Icon name="error" size={24} colorClassName="accent-danger" />,
+      });
+    }
+  };
 
   const handleCopy = async () => {
     await Clipboard.setStringAsync(address);
@@ -47,8 +65,12 @@ export function AddressContext(props: PropsWithChildren<Props>) {
           <ContextMenu.ItemIcon ios={{ name: "clipboard" }} />
           <ContextMenu.ItemTitle>Copy address</ContextMenu.ItemTitle>
         </ContextMenu.Item>
+        <ContextMenu.Item key="open-explorer" onSelect={handleExplorer}>
+          <ContextMenu.ItemIcon ios={{ name: "safari" }} />
+          <ContextMenu.ItemTitle>View in explorer</ContextMenu.ItemTitle>
+        </ContextMenu.Item>
         <ContextMenu.Item
-          key="delete-address"
+          key="remove-address"
           destructive
           onSelect={handleRemove}
         >
