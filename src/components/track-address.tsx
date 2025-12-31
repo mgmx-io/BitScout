@@ -1,18 +1,20 @@
 import { useValidateAddress } from "@/api/queries";
 import { useAppStore } from "@/stores";
-import { TrueSheet } from "@lodev09/react-native-true-sheet";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import * as Clipboard from "expo-clipboard";
-import { Button, Spinner, TextField, useToast } from "heroui-native";
-import { useState } from "react";
+import { BottomSheet, Button, Spinner, useToast } from "heroui-native";
+import { useMemo, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
+import { BottomSheetBlurOverlay } from "./blur-overlay";
 import Icon from "./icon";
 
 export function TrackAddress() {
   const [value, setValue] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const { trackAddress } = useAppStore();
   const { mutate, isPending } = useValidateAddress();
   const { toast } = useToast();
-  const isEmpty = value.length === 0;
+  const isEmpty = useMemo(() => value.trim().length === 0, [value]);
 
   const handleError = (error: string) => {
     toast.show({
@@ -23,12 +25,16 @@ export function TrackAddress() {
     });
   };
 
-  const handleSubmit = () => {
-    if (isEmpty) return;
-    mutate(value, {
+  const submitAddress = (addrRaw: string) => {
+    const addr = addrRaw.trim();
+    if (!addr) return;
+
+    mutate(addr, {
       onSuccess({ isvalid }) {
         if (isvalid) {
-          trackAddress(value);
+          trackAddress(addr);
+          setIsOpen(false);
+          setValue("");
         } else {
           handleError("Invalid address");
         }
@@ -39,36 +45,42 @@ export function TrackAddress() {
     });
   };
 
+  const handleSubmit = () => submitAddress(value);
+
   const handlePaste = async () => {
     const text = await Clipboard.getStringAsync();
     setValue(text);
-    handleSubmit();
+    submitAddress(text);
   };
 
   return (
-    <TrueSheet
-      name="track-address"
-      detents={[0.09, "auto"]}
-      dimmedDetentIndex={1}
-      initialDetentIndex={0}
-      dismissible={false}
-    >
-      <View className="gap-4 p-4">
-        <TextField>
-          <TextField.Input
-            value={value}
-            onChangeText={setValue}
-            className="rounded-full"
-            placeholder="enter bitcoin address"
-            autoComplete="off"
-            autoCapitalize="none"
-            autoCorrect={false}
-            onSubmitEditing={handleSubmit}
-          >
-            <TextField.InputEndContent>
+    <BottomSheet isOpen={isOpen} onOpenChange={setIsOpen}>
+      <BottomSheet.Trigger asChild>
+        <Button className="self-end" variant="tertiary">
+          <Icon name="add" size={20} colorClassName="accent-foreground" />
+          <Button.Label>Address</Button.Label>
+        </Button>
+      </BottomSheet.Trigger>
+
+      <BottomSheet.Portal>
+        <BottomSheetBlurOverlay />
+        <BottomSheet.Content backgroundClassName="bg-surface">
+          <View className="gap-4">
+            <View className="bg-field h-12 flex-row items-center rounded-full pr-2 pl-4">
+              <BottomSheetTextInput
+                value={value}
+                onChangeText={setValue}
+                className="flex-1"
+                placeholder="enter bitcoin address"
+                autoComplete="off"
+                autoCapitalize="none"
+                autoCorrect={false}
+                onSubmitEditing={handleSubmit}
+              />
               <TouchableOpacity
-                className="rounded-full p-2"
+                className="bg-surface aspect-square h-10 items-center justify-center rounded-full px-2"
                 onPress={handlePaste}
+                disabled={isPending}
               >
                 <Icon
                   name="content-paste"
@@ -76,17 +88,17 @@ export function TrackAddress() {
                   colorClassName="accent-field-placeholder"
                 />
               </TouchableOpacity>
-            </TextField.InputEndContent>
-          </TextField.Input>
-        </TextField>
-        <Button
-          variant={"tertiary"}
-          onPress={handleSubmit}
-          isDisabled={isPending || isEmpty}
-        >
-          {isPending ? <Spinner /> : "Submit"}
-        </Button>
-      </View>
-    </TrueSheet>
+            </View>
+            <Button
+              variant="tertiary"
+              onPress={handleSubmit}
+              isDisabled={isPending || isEmpty}
+            >
+              {isPending ? <Spinner /> : "Submit"}
+            </Button>
+          </View>
+        </BottomSheet.Content>
+      </BottomSheet.Portal>
+    </BottomSheet>
   );
 }
