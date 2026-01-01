@@ -1,16 +1,21 @@
+import { useGetAddresses } from "@/api/queries";
 import { AddressCard } from "@/components/address-card";
 import { AddressContext } from "@/components/address-context";
 import { TrackAddress } from "@/components/track-address";
 import { WalletHeader } from "@/components/wallet-header";
 import { WalletSection } from "@/components/wallet-section";
-import { useAddresses } from "@/hooks/use-addresses";
+import { usePreferencesStore } from "@/stores/preferences";
+import { sortAddresses } from "@/utils";
 import { LinearGradient } from "expo-linear-gradient";
 import { Divider, ScrollShadow } from "heroui-native";
 import { SectionList, View } from "react-native";
 
 export function Wallet() {
-  const addresses = useAddresses();
-  const sections = [{ data: addresses }];
+  const { sortField, sortOrder } = usePreferencesStore();
+  const queries = useGetAddresses();
+  const addresses = queries.map((q) => q.data).filter((a) => a !== undefined);
+  const sorted = sortAddresses(addresses, sortField, sortOrder);
+  const sections = [{ data: sorted }];
 
   return (
     <View className="pb-safe flex-1 px-4">

@@ -1,4 +1,5 @@
 import { GetAddressResponse } from "@/types/api";
+import { Address, SortField, SortOrder } from "@/types/misc";
 import { Big } from "big.js";
 
 export function computeBalance(data: GetAddressResponse | null) {
@@ -52,4 +53,19 @@ export function satsToBtc(sats: Big) {
 
 export function satsToUsd(sats: Big, price: Big) {
   return satsToBtc(sats).times(price);
+}
+
+export function sortAddresses(
+  addresses: (Address & GetAddressResponse)[],
+  sortField: SortField,
+  sortOrder: SortOrder,
+) {
+  return [...addresses].sort((a, b) => {
+    const valueA =
+      (sortField === "txCount" ? computeTxCount(a) : computeBalance(a)) ?? 0;
+    const valueB =
+      (sortField === "txCount" ? computeTxCount(b) : computeBalance(b)) ?? 0;
+
+    return sortOrder === "asc" ? valueA - valueB : valueB - valueA;
+  });
 }
