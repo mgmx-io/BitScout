@@ -1,11 +1,11 @@
-import { BottomSheet } from "heroui-native";
+import { useAddresses } from "@/hooks/use-addresses";
+import { usePreferencesStore } from "@/stores/preferences";
+import { SortField } from "@/types/misc";
+import { BottomSheet, Chip } from "heroui-native";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { BottomSheetBlurOverlay } from "./blur-overlay";
 import Icon from "./icon";
-
-type SortField = "balance" | "txCount";
-type SortOrder = "asc" | "desc";
 
 const sortOptions: {
   id: SortField;
@@ -23,23 +23,28 @@ const sortOptions: {
 
 export function WalletSection() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedField, setSelectedField] = useState<SortField>("balance");
-  const [selectedOrder, setSelectedOrder] = useState<SortOrder>("desc");
+  const addresses = useAddresses();
+  const { sortField, sortOrder, selectSortField, toggleSortOrder } =
+    usePreferencesStore();
 
   const handleSelect = (field: SortField) => {
-    if (selectedField === field) {
-      setSelectedOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    if (sortField === field) {
+      toggleSortOrder();
       return;
     }
 
-    setSelectedField(field);
-    setSelectedOrder("desc");
+    selectSortField(field);
   };
 
   return (
     <BottomSheet isOpen={isOpen} onOpenChange={setIsOpen}>
       <View className="bg-background flex-row items-center justify-between px-4 py-2">
-        <Text className="text-foreground text-lg font-bold">Addresses</Text>
+        <View className="flex-row items-center">
+          <Text className="text-foreground font-bold">Addresses</Text>
+          <Chip variant="tertiary">
+            <Chip.Label>{addresses.length}</Chip.Label>
+          </Chip>
+        </View>
         <BottomSheet.Trigger asChild>
           <TouchableOpacity className="bg-surface h-8 w-12 items-center justify-center rounded">
             <Icon name="sort" size={20} colorClassName="accent-foreground" />
@@ -57,7 +62,7 @@ export function WalletSection() {
 
             <View className="gap-2">
               {sortOptions.map((option) => {
-                const isSelected = selectedField === option.id;
+                const isSelected = sortField === option.id;
                 return (
                   <TouchableOpacity
                     key={option.id}
@@ -71,7 +76,7 @@ export function WalletSection() {
                     </Text>
                     {isSelected && (
                       <Icon
-                        name={selectedOrder === "asc" ? "north" : "south"}
+                        name={sortOrder === "asc" ? "north" : "south"}
                         size={20}
                         colorClassName="accent-foreground"
                       />

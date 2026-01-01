@@ -1,12 +1,12 @@
 import { useBalance } from "@/hooks/use-balance";
 import { useDisplayValue } from "@/hooks/use-display-value";
-import { useCurrencyStore } from "@/stores/currency";
+import { usePreferencesStore } from "@/stores/preferences";
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "./icon";
 
 export function WalletHeader() {
   const balance = useBalance();
-  const { unit, visible, cycleUnit, toggleVisibility } = useCurrencyStore();
+  const { unit, visible, cycleUnit, toggleVisibility } = usePreferencesStore();
   const displayValue = useDisplayValue(balance);
 
   return (

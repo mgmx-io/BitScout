@@ -1,5 +1,5 @@
 import { useGetPrices } from "@/api/queries";
-import { useCurrencyStore } from "@/stores/currency";
+import { usePreferencesStore } from "@/stores/preferences";
 import {
   formatBtc,
   formatSats,
@@ -10,7 +10,7 @@ import {
 import { Big } from "big.js";
 
 export function useDisplayValue(sats: number | null) {
-  const { unit, visible } = useCurrencyStore();
+  const { unit, visible } = usePreferencesStore();
   const { data, isPending, isError } = useGetPrices();
   if (sats === null) return null;
   const value = new Big(sats);
