@@ -7,7 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Divider, ScrollShadow, Spinner, useThemeColor } from "heroui-native";
 import { SectionList, View } from "react-native";
 
-type Props = StaticScreenProps<{ address: string }>;
+type Props = StaticScreenProps<{ address: string; addressId: string }>;
 
 export function Address(props: Props) {
   const { address } = props.route.params;

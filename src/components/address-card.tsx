@@ -14,7 +14,7 @@ import Icon from "./icon";
 type Props = Address;
 
 export function AddressCard(props: Props) {
-  const { address } = props;
+  const { id, address } = props;
   const { navigate } = useNavigation();
   const query = useGetAddress(address);
   const balance = computeBalance(query.data || null);
@@ -28,7 +28,7 @@ export function AddressCard(props: Props) {
       onLongPress={() => {}}
       onPress={() => {
         Feedback.selection();
-        navigate("Address", { address });
+        navigate("Address", { address, addressId: id });
       }}
     >
       <Icon

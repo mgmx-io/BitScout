@@ -4,6 +4,7 @@ import { Address } from "@/screens/address";
 import { Wallet } from "@/screens/wallet";
 import { compactAddress } from "@/utils";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createElement } from "react";
 
 export default createNativeStackNavigator({
   screens: {
@@ -18,11 +19,12 @@ export default createNativeStackNavigator({
     Address: {
       screen: Address,
       options: ({ route }) => {
-        const address = (route.params as any).address;
+        const { address, addressId } = route.params as any;
         return {
           title: compactAddress(address),
           headerShadowVisible: false,
-          headerRight: AddressMenu,
+          headerRight: (props) =>
+            createElement(AddressMenu, { ...props, address, addressId }),
         };
       },
     },

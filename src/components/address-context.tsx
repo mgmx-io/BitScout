@@ -26,7 +26,6 @@ export function AddressContext(props: PropsWithChildren<Props>) {
       toast.show({
         variant: "default",
         label: "Unable to open explorer",
-        description: url,
         icon: <Icon name="error" size={20} colorClassName="accent-danger" />,
       });
     }
@@ -37,7 +36,6 @@ export function AddressContext(props: PropsWithChildren<Props>) {
     toast.show({
       variant: "default",
       label: "Address copied to clipboard!",
-      description: address,
       icon: <Icon name="check" size={20} colorClassName="accent-success" />,
     });
   };
@@ -47,7 +45,6 @@ export function AddressContext(props: PropsWithChildren<Props>) {
     toast.show({
       variant: "default",
       label: "Address removed!",
-      description: address,
       icon: <Icon name="check" size={20} colorClassName="accent-success" />,
     });
   };

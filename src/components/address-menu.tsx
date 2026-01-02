@@ -1,8 +1,12 @@
+import { useAppStore } from "@/stores";
 import { Feedback } from "@/utils";
-import { BottomSheet } from "heroui-native";
+import { useNavigation } from "@react-navigation/native";
+import * as Clipboard from "expo-clipboard";
+import { BottomSheet, useToast } from "heroui-native";
 import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Linking, Text, TouchableOpacity, View } from "react-native";
 import { BottomSheetBlurOverlay } from "./blur-overlay";
+import Icon from "./icon";
 import Icon2 from "./icon2";
 
 const options = [
@@ -23,12 +27,72 @@ const options = [
   },
 ] as const;
 
-export function AddressMenu() {
-  const [isOpen, setIsOpen] = useState(false);
+type OptionId = (typeof options)[number]["id"];
 
-  const optionPress = () => {
+type Props = {
+  address: string;
+  addressId: string;
+};
+
+export function AddressMenu(props: Props) {
+  const { address, addressId } = props;
+  const [isOpen, setIsOpen] = useState(false);
+  const { toast } = useToast();
+  const { removeAddress } = useAppStore();
+  const { goBack } = useNavigation();
+
+  const handleCopy = async () => {
     Feedback.selection();
+    await Clipboard.setStringAsync(address);
+    toast.show({
+      variant: "default",
+      label: "Address copied to clipboard!",
+      icon: <Icon name="check" size={20} colorClassName="accent-success" />,
+    });
     setIsOpen(false);
+  };
+
+  const handleExplorer = async () => {
+    Feedback.selection();
+    const url = `https://mempool.space/address/${address}`;
+    try {
+      const canOpen = await Linking.canOpenURL(url);
+      if (!canOpen) {
+        throw new Error("Cannot open URL");
+      }
+      await Linking.openURL(url);
+      setIsOpen(false);
+    } catch {
+      toast.show({
+        variant: "default",
+        label: "Unable to open explorer",
+        description: url,
+        icon: <Icon name="error" size={20} colorClassName="accent-danger" />,
+      });
+      setIsOpen(false);
+    }
+  };
+
+  const handleRemove = () => {
+    Feedback.selection();
+    removeAddress(addressId);
+    toast.show({
+      variant: "default",
+      label: "Address removed!",
+      icon: <Icon name="check" size={20} colorClassName="accent-success" />,
+    });
+    setIsOpen(false);
+    goBack();
+  };
+
+  const optionHandlers = {
+    copy: handleCopy,
+    explorer: handleExplorer,
+    remove: handleRemove,
+  };
+
+  const handleOptionPress = (id: OptionId) => () => {
+    void optionHandlers[id]?.();
   };
 
   return (
@@ -57,10 +121,10 @@ export function AddressMenu() {
               {options.map((option) => (
                 <TouchableOpacity
                   key={option.id}
-                  className="bg-field flex-row items-center gap-3 rounded-full px-4 py-3"
-                  onPress={optionPress}
+                  className="bg-field flex-row items-center gap-2 rounded-full p-2"
+                  onPress={handleOptionPress(option.id)}
                 >
-                  <View className="bg-surface h-10 w-10 items-center justify-center rounded-full">
+                  <View className="bg-surface items-center justify-center rounded-full p-2">
                     <Icon2
                       name={option.icon}
                       size={20}

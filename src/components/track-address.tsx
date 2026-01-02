@@ -36,7 +36,6 @@ export function TrackAddress() {
     toast.show({
       variant: "default",
       label: "Address added",
-      description: addr,
       icon: <Icon name="check" size={20} colorClassName="accent-success" />,
       onShow: () => {
         Feedback.success();
