@@ -1,6 +1,7 @@
 import { useAddresses } from "@/hooks/use-addresses";
 import { usePreferencesStore } from "@/stores/preferences";
 import { SortField } from "@/types/misc";
+import { Feedback } from "@/utils";
 import { BottomSheet, Chip } from "heroui-native";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -28,6 +29,8 @@ export function WalletSection() {
     usePreferencesStore();
 
   const handleSelect = (field: SortField) => {
+    Feedback.selection();
+
     if (sortField === field) {
       toggleSortOrder();
       return;
@@ -46,7 +49,10 @@ export function WalletSection() {
           </Chip>
         </View>
         <BottomSheet.Trigger asChild>
-          <TouchableOpacity className="bg-surface h-8 w-12 items-center justify-center rounded">
+          <TouchableOpacity
+            onPress={Feedback.selection}
+            className="bg-surface h-8 w-12 items-center justify-center rounded"
+          >
             <Icon name="sort" size={20} colorClassName="accent-foreground" />
           </TouchableOpacity>
         </BottomSheet.Trigger>

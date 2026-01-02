@@ -1,5 +1,6 @@
 import { useWallets } from "@/hooks/use-wallets";
 import { useAppStore } from "@/stores";
+import { Feedback } from "@/utils";
 import { BottomSheet, Button } from "heroui-native";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -13,11 +14,13 @@ export function WalletSwitch() {
   const selected = wallets.find((wallet) => wallet.selected)!;
 
   const handleSelect = (walletId: string) => {
+    Feedback.selection();
     selectWallet(walletId);
     setIsOpen(false);
   };
 
   const handleCreateWallet = () => {
+    Feedback.selection();
     createWallet();
     setIsOpen(false);
   };
@@ -25,7 +28,10 @@ export function WalletSwitch() {
   return (
     <BottomSheet isOpen={isOpen} onOpenChange={setIsOpen}>
       <BottomSheet.Trigger asChild>
-        <TouchableOpacity className="bg-surface ml-4 h-8 flex-row items-center gap-2 rounded pr-2 pl-4">
+        <TouchableOpacity
+          onPress={Feedback.selection}
+          className="bg-surface ml-4 h-8 flex-row items-center gap-2 rounded pr-2 pl-4"
+        >
           <Text className="text-foreground font-bold">{selected.name}</Text>
           <Icon
             name="unfold-more"

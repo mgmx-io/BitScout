@@ -1,6 +1,6 @@
 import { useValidateAddress } from "@/api/queries";
 import { useAppStore } from "@/stores";
-import { compactAddress } from "@/utils";
+import { compactAddress, Feedback } from "@/utils";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import * as Clipboard from "expo-clipboard";
 import { BottomSheet, Button, Spinner, useToast } from "heroui-native";
@@ -22,7 +22,10 @@ export function TrackAddress() {
       variant: "default",
       label: error,
       icon: <Icon name="error" size={20} colorClassName="accent-danger" />,
-      onShow: () => setValue(""),
+      onShow: () => {
+        Feedback.error();
+        setValue("");
+      },
     });
   };
 
@@ -35,7 +38,10 @@ export function TrackAddress() {
       label: "Address added",
       description: addr,
       icon: <Icon name="check" size={20} colorClassName="accent-success" />,
-      onShow: () => setValue(""),
+      onShow: () => {
+        Feedback.success();
+        setValue("");
+      },
     });
   };
 
@@ -68,7 +74,11 @@ export function TrackAddress() {
   return (
     <BottomSheet isOpen={isOpen} onOpenChange={setIsOpen}>
       <BottomSheet.Trigger asChild>
-        <Button className="absolute right-4 bottom-4 z-10" variant="tertiary">
+        <Button
+          onPress={Feedback.selection}
+          className="absolute right-4 bottom-4 z-10"
+          variant="tertiary"
+        >
           <Icon name="add" size={20} colorClassName="accent-foreground" />
           <Button.Label>Address</Button.Label>
         </Button>

@@ -1,6 +1,7 @@
 import { useBalance } from "@/hooks/use-balance";
 import { useDisplayValue } from "@/hooks/use-display-value";
 import { usePreferencesStore } from "@/stores/preferences";
+import { Feedback } from "@/utils";
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "./icon";
 
@@ -20,13 +21,19 @@ export function WalletHeader() {
       <View className="flex-row gap-2">
         <TouchableOpacity
           className="bg-surface h-8 w-12 items-center justify-center rounded"
-          onPress={cycleUnit}
+          onPress={() => {
+            Feedback.selection();
+            cycleUnit();
+          }}
         >
           <Text className="text-foreground font-bold">{unit}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           className="bg-surface h-8 w-12 items-center justify-center rounded"
-          onPress={toggleVisibility}
+          onPress={() => {
+            Feedback.selection();
+            toggleVisibility();
+          }}
         >
           <Icon
             name={visible ? "visibility-off" : "visibility"}
