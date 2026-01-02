@@ -13,7 +13,7 @@ export function useAdapter(): ReactNavigation.Theme {
   return {
     colors: {
       background,
-      primary,
+      primary: text,
       border,
       card: background,
       text,
