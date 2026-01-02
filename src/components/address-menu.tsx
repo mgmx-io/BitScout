@@ -113,30 +113,25 @@ export function AddressMenu(props: Props) {
       <BottomSheet.Portal>
         <BottomSheetBlurOverlay />
         <BottomSheet.Content backgroundClassName="bg-surface">
-          <View className="gap-4">
-            <Text className="text-foreground px-4 text-lg font-bold">
-              Address options
-            </Text>
-            <View className="gap-2">
-              {options.map((option) => (
-                <TouchableOpacity
-                  key={option.id}
-                  className="bg-field flex-row items-center gap-2 rounded-full p-2"
-                  onPress={handleOptionPress(option.id)}
-                >
-                  <View className="bg-surface items-center justify-center rounded-full p-2">
-                    <Icon2
-                      name={option.icon}
-                      size={20}
-                      colorClassName="accent-foreground"
-                    />
-                  </View>
-                  <Text className="text-foreground font-bold">
-                    {option.label}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
+          <View className="gap-2">
+            {options.map((option) => (
+              <TouchableOpacity
+                key={option.id}
+                className="bg-field flex-row items-center gap-2 rounded-full p-2"
+                onPress={handleOptionPress(option.id)}
+              >
+                <View className="bg-surface items-center justify-center rounded-full p-2">
+                  <Icon2
+                    name={option.icon}
+                    size={20}
+                    colorClassName="accent-foreground"
+                  />
+                </View>
+                <Text className="text-foreground font-bold">
+                  {option.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </BottomSheet.Content>
       </BottomSheet.Portal>

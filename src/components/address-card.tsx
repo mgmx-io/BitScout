@@ -9,7 +9,7 @@ import {
 } from "@/utils";
 import { useNavigation } from "@react-navigation/native";
 import { Text, TouchableOpacity, View } from "react-native";
-import Icon from "./icon";
+import Icon2 from "./icon2";
 
 type Props = Address;
 
@@ -31,11 +31,7 @@ export function AddressCard(props: Props) {
         navigate("Address", { address, addressId: id });
       }}
     >
-      <Icon
-        name="account-balance-wallet"
-        size={20}
-        colorClassName="accent-foreground"
-      />
+      <Icon2 name="wallet" size={20} colorClassName="accent-foreground" />
       <Text className="text-foreground flex-1">{compactAddress(address)}</Text>
       <View className="items-end">
         <Text className="text-foreground font-bold">{displayValue}</Text>
