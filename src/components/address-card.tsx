@@ -21,7 +21,7 @@ export function AddressCard(props: Props) {
       className="flex-row items-center gap-4 p-4"
       delayLongPress={100}
       onLongPress={() => {}}
-      onPress={() => navigate("Address")}
+      onPress={() => navigate("Address", { address })}
     >
       <Icon
         name="account-balance-wallet"

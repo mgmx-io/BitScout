@@ -4,6 +4,7 @@ import {
   GetHistoricalPriceRequest,
   GetHistoricalPriceResponse,
   GetPricesResponse,
+  GetTxsResponse,
   GetValidateAddressResponse,
 } from "@/types/api";
 
@@ -35,5 +36,13 @@ export async function getValidateAddress(address: string) {
   const { data } = await api.get<GetValidateAddressResponse>(
     `/v1/validate-address/${address}`,
   );
+  return data;
+}
+
+// https://mempool.space/api/address/1wiz18xYmhRX6xStj2b9t1rwWX4GKUgpv/txs
+export async function getTxs(address: string, txid: string) {
+  const { data } = await api.get<GetTxsResponse>(`/address/${address}/txs`, {
+    params: { after_txid: txid },
+  });
   return data;
 }

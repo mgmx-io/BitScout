@@ -1,10 +1,16 @@
 import { useAddresses } from "@/hooks/use-addresses";
 import { GetAddressResponse, GetHistoricalPriceRequest } from "@/types/api";
-import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueries,
+  useQuery,
+} from "@tanstack/react-query";
 import {
   getAddress,
   getHistoricalPrice,
   getPrices,
+  getTxs,
   getValidateAddress,
 } from "./endpoints";
 
@@ -44,5 +50,18 @@ export function useGetAddresses() {
 export function useValidateAddress() {
   return useMutation({
     mutationFn: getValidateAddress,
+  });
+}
+
+export function useGetTxs(address: string) {
+  return useInfiniteQuery({
+    queryKey: ["address", address, "txs"],
+    queryFn: ({ pageParam }) => getTxs(address, pageParam),
+    initialPageParam: "",
+    getNextPageParam: (lastPage) => {
+      const MAX_RESULTS = 50;
+      if (lastPage.length < MAX_RESULTS) return undefined;
+      return lastPage[lastPage.length - 1].txid;
+    },
   });
 }

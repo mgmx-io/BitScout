@@ -45,3 +45,44 @@ export type GetValidateAddressResponse = {
   error?: string;
   error_locations?: number[];
 };
+
+export type TxOutput = {
+  scriptpubkey: string;
+  scriptpubkey_asm: string;
+  scriptpubkey_type: string;
+  scriptpubkey_address?: string;
+  value: number;
+};
+
+export type TxVin = {
+  txid: string;
+  vout: number;
+  prevout: TxOutput | null;
+  scriptsig: string;
+  scriptsig_asm: string;
+  is_coinbase: boolean;
+  sequence: number;
+  witness?: string[];
+};
+
+export type TxStatus = {
+  confirmed: boolean;
+  block_height?: number;
+  block_hash?: string;
+  block_time?: number;
+};
+
+export type Tx = {
+  txid: string;
+  version: number;
+  locktime: number;
+  vin: TxVin[];
+  vout: TxOutput[];
+  size: number;
+  weight: number;
+  sigops: number;
+  fee: number;
+  status: TxStatus;
+};
+
+export type GetTxsResponse = Tx[];
