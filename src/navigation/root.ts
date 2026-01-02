@@ -1,6 +1,7 @@
 import { WalletSwitch } from "@/components/wallet-switch";
 import { Address } from "@/screens/address";
 import { Wallet } from "@/screens/wallet";
+import { compactAddress } from "@/utils";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export default createNativeStackNavigator({
@@ -15,9 +16,10 @@ export default createNativeStackNavigator({
     },
     Address: {
       screen: Address,
-      options: {
-        title: "Address",
-      },
+      options: ({ route }) => ({
+        title: compactAddress((route.params as any).address),
+        headerShadowVisible: false,
+      }),
     },
   },
   screenOptions: {

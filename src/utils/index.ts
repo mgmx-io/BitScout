@@ -1,5 +1,5 @@
-import { GetAddressResponse } from "@/types/api";
-import { FullAddress, SortField, SortOrder } from "@/types/misc";
+import { GetAddressResponse, Tx } from "@/types/api";
+import { FullAddress, SortField, SortOrder, TxGroup } from "@/types/misc";
 import { Big } from "big.js";
 import * as Haptics from "expo-haptics";
 import { Platform } from "react-native";
@@ -106,4 +106,26 @@ export class Feedback {
     if (Platform.OS === "ios")
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
   };
+}
+
+export function formatYear(unix?: number) {
+  if (!unix) return "Unconfirmed";
+  const date = new Date(unix * 1000);
+  const month = date.toLocaleString("default", { month: "short" });
+  const year = date.getFullYear();
+  return `${month} ${year}`;
+}
+
+export function groupTxs(arr?: Tx[]): TxGroup[] {
+  if (!arr) return [];
+  const grouped = arr.reduce<{ [key: string]: TxGroup }>((acc, item) => {
+    const monthYear = formatYear(item.status.block_time);
+    if (!acc[monthYear]) {
+      acc[monthYear] = { title: monthYear, data: [] };
+    }
+    acc[monthYear].data.push(item);
+    return acc;
+  }, {});
+
+  return Object.values(grouped);
 }
