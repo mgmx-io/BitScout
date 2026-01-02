@@ -1,3 +1,4 @@
+import { AddressMenu } from "@/components/address-menu";
 import { WalletSwitch } from "@/components/wallet-switch";
 import { Address } from "@/screens/address";
 import { Wallet } from "@/screens/wallet";
@@ -16,10 +17,14 @@ export default createNativeStackNavigator({
     },
     Address: {
       screen: Address,
-      options: ({ route }) => ({
-        title: compactAddress((route.params as any).address),
-        headerShadowVisible: false,
-      }),
+      options: ({ route }) => {
+        const address = (route.params as any).address;
+        return {
+          title: compactAddress(address),
+          headerShadowVisible: false,
+          headerRight: AddressMenu,
+        };
+      },
     },
   },
   screenOptions: {
