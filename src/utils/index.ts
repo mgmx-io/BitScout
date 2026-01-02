@@ -152,3 +152,14 @@ export function groupTxs(arr?: Tx[]): TxGroup[] {
 
   return Object.values(grouped);
 }
+
+export function formatDate(unix?: number) {
+  if (!unix) return;
+  const date = new Date(unix * 1000).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+  return date;
+}
