@@ -1,6 +1,8 @@
 import { GetAddressResponse } from "@/types/api";
 import { FullAddress, SortField, SortOrder } from "@/types/misc";
 import { Big } from "big.js";
+import * as Haptics from "expo-haptics";
+import { Platform } from "react-native";
 
 export function computeBalance(data: GetAddressResponse | null) {
   if (data === null) return null;
@@ -68,4 +70,40 @@ export function sortAddresses(
 
     return sortOrder === "asc" ? valueA - valueB : valueB - valueA;
   });
+}
+
+export class Feedback {
+  static selection = () => {
+    if (Platform.OS === "ios") Haptics.selectionAsync();
+  };
+
+  static soft = () => {
+    if (Platform.OS === "ios")
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+  };
+
+  static light() {
+    if (Platform.OS === "ios")
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  }
+
+  static medium() {
+    if (Platform.OS === "ios")
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  }
+
+  static heavy() {
+    if (Platform.OS === "ios")
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+  }
+
+  static success = () => {
+    if (Platform.OS === "ios")
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+  };
+
+  static error = () => {
+    if (Platform.OS === "ios")
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+  };
 }
