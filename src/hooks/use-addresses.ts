@@ -6,8 +6,7 @@ export function useAddresses() {
   const addresses = useAppStore((s) => s.addresses);
 
   return useMemo(
-    () =>
-      selectedId ? addresses.filter((a) => a.walletId === selectedId) : [],
+    () => addresses.filter((a) => a.walletId === selectedId),
     [selectedId, addresses],
   );
 }

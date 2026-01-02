@@ -1,5 +1,5 @@
 import { GetAddressResponse } from "@/types/api";
-import { Address, SortField, SortOrder } from "@/types/misc";
+import { FullAddress, SortField, SortOrder } from "@/types/misc";
 import { Big } from "big.js";
 
 export function computeBalance(data: GetAddressResponse | null) {
@@ -56,7 +56,7 @@ export function satsToUsd(sats: Big, price: Big) {
 }
 
 export function sortAddresses(
-  addresses: (Address & GetAddressResponse)[],
+  addresses: FullAddress[],
   sortField: SortField,
   sortOrder: SortOrder,
 ) {
