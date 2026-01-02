@@ -7,6 +7,7 @@ import { WalletSection } from "@/components/wallet-section";
 import { usePreferencesStore } from "@/stores/preferences";
 import { FullAddress } from "@/types/misc";
 import { sortAddresses } from "@/utils";
+import { useQueryClient } from "@tanstack/react-query";
 import { LinearGradient } from "expo-linear-gradient";
 import { Divider, ScrollShadow } from "heroui-native";
 import { useCallback } from "react";
@@ -14,6 +15,7 @@ import { ListRenderItem, SectionList, View } from "react-native";
 
 export function Wallet() {
   const { sortField, sortOrder } = usePreferencesStore();
+  const queryClient = useQueryClient();
   const queries = useGetAddresses();
   const addresses = queries.map((q) => q.data).filter((a) => a !== undefined);
   const sorted = sortAddresses(addresses, sortField, sortOrder);
@@ -27,6 +29,13 @@ export function Wallet() {
     ),
     [],
   );
+
+  const refresh = useCallback(async () => {
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ["prices"] }),
+      queryClient.invalidateQueries({ queryKey: ["addresses"] }),
+    ]);
+  }, [queryClient]);
 
   return (
     <View className="pb-safe flex-1 px-4">
@@ -44,6 +53,8 @@ export function Wallet() {
           ListHeaderComponent={WalletHeader}
           renderSectionHeader={() => <WalletSection />}
           ItemSeparatorComponent={Divider}
+          refreshing={false}
+          onRefresh={refresh}
         />
       </ScrollShadow>
       <TrackAddress />
