@@ -26,7 +26,7 @@ export function Address(props: Props) {
           sections={sections}
           keyExtractor={(item) => item.txid}
           contentContainerClassName="grow"
-          renderItem={({ item }) => <TxItem {...item} />}
+          renderItem={({ item }) => <TxItem address={address} {...item} />}
           renderSectionHeader={({ section }) => (
             <AddressSection title={section.title} />
           )}

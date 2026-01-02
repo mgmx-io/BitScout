@@ -1,4 +1,4 @@
-import { GetAddressResponse, Tx } from "@/types/api";
+import { GetAddressResponse, Tx, TxOutput, TxVin } from "@/types/api";
 import { FullAddress, SortField, SortOrder, TxGroup } from "@/types/misc";
 import { Big } from "big.js";
 import * as Haptics from "expo-haptics";
@@ -16,6 +16,29 @@ export function computeBalance(data: GetAddressResponse | null) {
 export function computeTxCount(data: GetAddressResponse | null) {
   if (data === null) return null;
   return data.chain_stats.tx_count + data.mempool_stats.tx_count;
+}
+
+export function computeTxValue(
+  inputs: TxVin[],
+  outputs: TxOutput[],
+  address: string,
+) {
+  let received = new Big(0);
+  let sent = new Big(0);
+
+  for (const output of outputs) {
+    if (output.scriptpubkey_address === address) {
+      received = received.plus(output.value);
+    }
+  }
+
+  for (const input of inputs) {
+    if (input.prevout?.scriptpubkey_address === address) {
+      sent = sent.plus(input.prevout.value);
+    }
+  }
+
+  return received.minus(sent);
 }
 
 export function compactAddress(address: string) {
