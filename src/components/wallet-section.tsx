@@ -73,7 +73,7 @@ export function WalletSection() {
                   <TouchableOpacity
                     key={option.id}
                     className={`flex-row items-center justify-between rounded-full px-4 py-3 ${
-                      isSelected ? "bg-field" : "bg-surface"
+                      isSelected ? "bg-surface-secondary" : "bg-surface"
                     }`}
                     onPress={() => handleSelect(option.id)}
                   >

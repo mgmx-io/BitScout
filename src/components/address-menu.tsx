@@ -117,7 +117,7 @@ export function AddressMenu(props: Props) {
             {options.map((option) => (
               <TouchableOpacity
                 key={option.id}
-                className="bg-field flex-row items-center gap-2 rounded-full p-2"
+                className="bg-surface-secondary flex-row items-center gap-2 rounded-full p-2"
                 onPress={handleOptionPress(option.id)}
               >
                 <View className="bg-surface items-center justify-center rounded-full p-2">

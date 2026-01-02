@@ -53,7 +53,7 @@ export function WalletSwitch() {
                 <TouchableOpacity
                   key={wallet.id}
                   className={`flex-row items-center justify-between rounded-full px-4 py-3 ${
-                    wallet.selected ? "bg-field" : "bg-surface"
+                    wallet.selected ? "bg-surface-secondary" : "bg-surface"
                   }`}
                   onPress={() => handleSelect(wallet.id)}
                 >
