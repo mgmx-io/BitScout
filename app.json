@@ -16,7 +16,8 @@
       "supportsTablet": false,
       "bundleIdentifier": "io.mgmx.bitscout",
       "infoPlist": {
-        "UIDesignRequiresCompatibility": true
+        "UIDesignRequiresCompatibility": true,
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -27,6 +28,11 @@
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "io.mgmx.bitscout"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "edc2236c-2010-4009-ad80-bde0b119d077"
+      }
     }
   }
 }
