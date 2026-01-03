@@ -1,11 +1,12 @@
 import { useGetTxs } from "@/api/queries";
 import { AddressSection } from "@/components/address-section";
+import Icon from "@/components/icon";
 import { TxItem } from "@/components/tx-item";
 import { groupTxs } from "@/utils";
 import { StaticScreenProps } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Divider, ScrollShadow } from "heroui-native";
-import { ActivityIndicator, SectionList, View } from "react-native";
+import { Button, Divider, ScrollShadow } from "heroui-native";
+import { ActivityIndicator, SectionList, Text, View } from "react-native";
 
 type Props = StaticScreenProps<{ address: string; addressId: string }>;
 
@@ -23,6 +24,34 @@ export function Address(props: Props) {
     if (query.isFetchingNextPage) return;
     query.fetchNextPage();
   };
+
+  if (query.isPending) {
+    return <ActivityIndicator size="large" className="flex-1" />;
+  }
+
+  if (query.isError) {
+    return (
+      <View className="flex-1 items-center justify-center gap-2">
+        <View className="flex-row items-center gap-2">
+          <Icon
+            name="error-outline"
+            colorClassName="accent-foreground"
+            size={20}
+          />
+          <Text className="text-foreground text-lg font-bold">
+            Unable to load transactions
+          </Text>
+        </View>
+        <Button
+          variant="tertiary"
+          onPress={() => query.refetch()}
+          isDisabled={query.isRefetching}
+        >
+          Retry
+        </Button>
+      </View>
+    );
+  }
 
   return (
     <View className="pb-safe flex-1 px-4">
