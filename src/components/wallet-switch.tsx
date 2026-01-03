@@ -30,7 +30,7 @@ export function WalletSwitch() {
       <BottomSheet.Trigger asChild>
         <TouchableOpacity
           onPress={Feedback.selection}
-          className="bg-surface ml-4 h-8 flex-row items-center gap-2 rounded pr-2 pl-4"
+          className="bg-surface ml-4 h-8 flex-row items-center gap-2 rounded pr-2 pl-4 shadow-xs"
         >
           <Text className="text-foreground font-bold">{selected.name}</Text>
           <Icon

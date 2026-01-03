@@ -51,7 +51,7 @@ export function WalletSection() {
         <BottomSheet.Trigger asChild>
           <TouchableOpacity
             onPress={Feedback.selection}
-            className="bg-surface h-8 w-12 items-center justify-center rounded"
+            className="bg-surface h-8 w-12 items-center justify-center rounded shadow-xs"
           >
             <Icon name="sort" size={20} colorClassName="accent-foreground" />
           </TouchableOpacity>

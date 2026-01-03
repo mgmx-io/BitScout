@@ -23,7 +23,7 @@ export function WalletHeader() {
       </View>
       <View className="flex-row gap-2">
         <TouchableOpacity
-          className="bg-surface h-8 w-12 items-center justify-center rounded"
+          className="bg-surface h-8 w-12 items-center justify-center rounded shadow-xs"
           onPress={() => {
             Feedback.selection();
             cycleUnit();
@@ -32,7 +32,7 @@ export function WalletHeader() {
           <Text className="text-foreground font-bold">{unit}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className="bg-surface h-8 w-12 items-center justify-center rounded"
+          className="bg-surface h-8 w-12 items-center justify-center rounded shadow-xs"
           onPress={() => {
             Feedback.selection();
             toggleVisibility();
