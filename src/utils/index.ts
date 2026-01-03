@@ -85,14 +85,37 @@ export function sortAddresses(
   sortField: SortField,
   sortOrder: SortOrder,
 ) {
-  return [...addresses].sort((a, b) => {
-    const valueA =
-      (sortField === "txCount" ? computeTxCount(a) : computeBalance(a)) ?? 0;
-    const valueB =
-      (sortField === "txCount" ? computeTxCount(b) : computeBalance(b)) ?? 0;
+  const direction = sortOrder === "asc" ? 1 : -1;
 
-    return sortOrder === "asc" ? valueA - valueB : valueB - valueA;
-  });
+  const sortable: { address: FullAddress; value: number }[] = [];
+  const pending: FullAddress[] = [];
+
+  for (const address of addresses) {
+    const data = address.query.data;
+
+    if (!data) {
+      pending.push(address);
+      continue;
+    }
+
+    const value = getSortValue(data, sortField);
+    sortable.push({ address, value });
+  }
+
+  sortable.sort((a, b) => direction * (a.value - b.value));
+
+  return [...sortable.map((x) => x.address), ...pending];
+}
+
+function getSortValue(data: GetAddressResponse, field: SortField): number {
+  switch (field) {
+    case "txCount":
+      return computeTxCount(data) ?? 0;
+    case "balance":
+      return computeBalance(data) ?? 0;
+    default:
+      return 0;
+  }
 }
 
 export class Feedback {

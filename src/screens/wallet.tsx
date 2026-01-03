@@ -2,6 +2,7 @@ import { useGetAddresses } from "@/api/queries";
 import { AddressCard } from "@/components/address-card";
 import { AddressContext } from "@/components/address-context";
 import { TrackAddress } from "@/components/track-address";
+import { WalletEmpty } from "@/components/wallet-empty";
 import { WalletHeader } from "@/components/wallet-header";
 import { WalletSection } from "@/components/wallet-section";
 import { usePreferencesStore } from "@/stores/preferences";
@@ -16,10 +17,10 @@ import { ListRenderItem, SectionList, View } from "react-native";
 export function Wallet() {
   const { sortField, sortOrder } = usePreferencesStore();
   const queryClient = useQueryClient();
-  const queries = useGetAddresses();
-  const addresses = queries.map((q) => q.data).filter((a) => a !== undefined);
+  const addresses = useGetAddresses();
   const sorted = sortAddresses(addresses, sortField, sortOrder);
   const sections = [{ data: sorted }];
+  const empty = addresses.length === 0;
 
   const renderItem: ListRenderItem<FullAddress> = useCallback(
     ({ item }) => (
@@ -37,6 +38,27 @@ export function Wallet() {
     ]);
   }, [queryClient]);
 
+  let render;
+
+  if (empty) {
+    render = <WalletEmpty />;
+  } else {
+    render = (
+      <SectionList
+        sections={sections}
+        keyExtractor={(item) => item.id}
+        contentContainerClassName="grow pb-16"
+        showsVerticalScrollIndicator={false}
+        renderItem={renderItem}
+        ListHeaderComponent={WalletHeader}
+        renderSectionHeader={() => <WalletSection />}
+        ItemSeparatorComponent={Divider}
+        refreshing={false}
+        onRefresh={refresh}
+      />
+    );
+  }
+
   return (
     <View className="pb-safe flex-1 px-4">
       <ScrollShadow
@@ -44,18 +66,7 @@ export function Wallet() {
         className="grow"
         visibility="bottom"
       >
-        <SectionList
-          sections={sections}
-          keyExtractor={(item) => item.id}
-          contentContainerClassName="grow pb-16"
-          showsVerticalScrollIndicator={false}
-          renderItem={renderItem}
-          ListHeaderComponent={WalletHeader}
-          renderSectionHeader={() => <WalletSection />}
-          ItemSeparatorComponent={Divider}
-          refreshing={false}
-          onRefresh={refresh}
-        />
+        {render}
       </ScrollShadow>
       <TrackAddress />
     </View>

@@ -2,6 +2,7 @@ import { useBalance } from "@/hooks/use-balance";
 import { useDisplayValue } from "@/hooks/use-display-value";
 import { usePreferencesStore } from "@/stores/preferences";
 import { Feedback } from "@/utils";
+import { Skeleton } from "heroui-native";
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "./icon";
 
@@ -14,9 +15,11 @@ export function WalletHeader() {
     <View className="gap-2 p-4">
       <View>
         <Text className="text-foreground">Balance</Text>
-        <Text className="text-foreground text-3xl font-bold">
-          {displayValue}
-        </Text>
+        <Skeleton isLoading={balance === null} className="h-9 w-48 rounded">
+          <Text className="text-foreground text-3xl font-bold">
+            {displayValue}
+          </Text>
+        </Skeleton>
       </View>
       <View className="flex-row gap-2">
         <TouchableOpacity

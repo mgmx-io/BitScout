@@ -2,9 +2,15 @@ import { useGetAddresses } from "@/api/queries";
 import { computeBalance } from "@/utils";
 
 export function useBalance() {
-  const queries = useGetAddresses();
-  const ready = queries.every((q) => q.isSuccess);
-  if (!ready) return null;
-  const balance = queries.reduce((sum, q) => sum + computeBalance(q.data)!, 0);
-  return balance;
+  const addresses = useGetAddresses();
+
+  const loading = addresses.some((a) => a.query.isPending);
+  if (loading) return null;
+
+  return addresses.reduce((sum, a) => {
+    const data = a.query.data;
+    if (!data) return sum;
+
+    return sum + (computeBalance(data) ?? 0);
+  }, 0);
 }

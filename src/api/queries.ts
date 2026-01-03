@@ -1,5 +1,5 @@
 import { useAddresses } from "@/hooks/use-addresses";
-import { GetAddressResponse, GetHistoricalPriceRequest } from "@/types/api";
+import { GetHistoricalPriceRequest } from "@/types/api";
 import {
   useInfiniteQuery,
   useMutation,
@@ -34,17 +34,20 @@ export function useGetAddress(address: string) {
     queryFn: () => getAddress(address),
   });
 }
-
 export function useGetAddresses() {
   const addresses = useAddresses();
 
-  return useQueries({
-    queries: addresses.map((entry) => ({
-      queryKey: ["address", entry.address],
-      queryFn: () => getAddress(entry.address),
-      select: (data: GetAddressResponse) => ({ ...data, ...entry }),
+  const queries = useQueries({
+    queries: addresses.map(({ address }) => ({
+      queryKey: ["address", address],
+      queryFn: () => getAddress(address),
     })),
   });
+
+  return addresses.map((address, index) => ({
+    ...address,
+    query: queries[index],
+  }));
 }
 
 export function useValidateAddress() {

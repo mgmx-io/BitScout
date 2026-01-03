@@ -1,3 +1,4 @@
+import { UseQueryResult } from "@tanstack/react-query";
 import { GetAddressResponse, Tx } from "./api";
 
 export type Address = {
@@ -6,7 +7,9 @@ export type Address = {
   address: string;
 };
 
-export type FullAddress = Address & GetAddressResponse;
+export type FullAddress = Address & {
+  query: UseQueryResult<GetAddressResponse, Error>;
+};
 
 export type Unit = "btc" | "sats" | "usd";
 

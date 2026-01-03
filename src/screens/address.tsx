@@ -4,8 +4,8 @@ import { TxItem } from "@/components/tx-item";
 import { groupTxs } from "@/utils";
 import { StaticScreenProps } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Divider, ScrollShadow, Spinner, useThemeColor } from "heroui-native";
-import { SectionList, View } from "react-native";
+import { Divider, ScrollShadow } from "heroui-native";
+import { ActivityIndicator, SectionList, View } from "react-native";
 
 type Props = StaticScreenProps<{ address: string; addressId: string }>;
 
@@ -14,7 +14,6 @@ export function Address(props: Props) {
   const query = useGetTxs(address);
   const data = query.data?.pages.flat();
   const sections = groupTxs(data);
-  const foreground = useThemeColor("foreground");
 
   const handleEndReached = () => {
     if (!query.data) return;
@@ -43,11 +42,7 @@ export function Address(props: Props) {
           ItemSeparatorComponent={Divider}
           ListFooterComponent={() => {
             if (!query.isFetchingNextPage) return null;
-            return (
-              <Spinner className="self-center">
-                <Spinner color={foreground} size="lg" />
-              </Spinner>
-            );
+            return <ActivityIndicator />;
           }}
           showsVerticalScrollIndicator={false}
           onEndReached={handleEndReached}
