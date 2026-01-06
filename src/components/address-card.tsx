@@ -37,14 +37,10 @@ export function AddressCard(props: Props) {
           isLoading={displayValue === null}
           className="h-4 w-24 rounded"
         >
-          <View className="h-4">
-            <Text className="text-foreground font-bold">{displayValue}</Text>
-          </View>
+          <Text className="text-foreground font-bold">{displayValue}</Text>
         </Skeleton>
         <Skeleton isLoading={txCount === null} className="h-4 w-12 rounded">
-          <View className="h-4">
-            <Text className="text-muted text-sm">{txCount} tx</Text>
-          </View>
+          <Text className="text-muted text-sm">{txCount} tx</Text>
         </Skeleton>
       </View>
     </TouchableOpacity>
