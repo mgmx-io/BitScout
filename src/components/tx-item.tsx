@@ -4,10 +4,13 @@ import { computeTxValue, formatDate } from "@/utils";
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon2 from "./icon2";
 
-type Props = Tx & { address: string; onPress?: () => void };
+type Props = Tx & {
+  address: string;
+  onPress?: (txId: string) => void;
+};
 
 export function TxItem(props: Props) {
-  const { address, vin, vout, status, onPress } = props;
+  const { address, vin, vout, status, txid, onPress } = props;
   const value = computeTxValue(vin, vout, address).toNumber();
   const displayValue = useDisplayValue(value);
   const income = value > 0;
@@ -15,7 +18,7 @@ export function TxItem(props: Props) {
   return (
     <TouchableOpacity
       className="flex-row items-center justify-between gap-4 p-4"
-      onPress={onPress}
+      onPress={onPress ? () => onPress(txid) : undefined}
     >
       <Icon2
         name={income ? "arrow-collapse-down" : "arrow-expand-up"}

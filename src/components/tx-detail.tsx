@@ -1,19 +1,18 @@
-import { Tx } from "@/types/api";
 import { BottomSheet } from "heroui-native";
 import { Text, View } from "react-native";
 import { BottomSheetBlurOverlay } from "./blur-overlay";
 
 type Props = {
-  tx?: Tx | null;
-  setSelectedTx: (tx: Tx | null) => void;
+  txId?: string | null;
+  setSelectedTxId: (txId: string | null) => void;
 };
 
 export function TxDetail(props: Props) {
-  const { tx, setSelectedTx } = props;
-  const isOpen = Boolean(tx);
+  const { txId, setSelectedTxId } = props;
+  const isOpen = Boolean(txId);
 
   const handleOpenChange = (open: boolean) => {
-    if (!open) setSelectedTx(null);
+    if (!open) setSelectedTxId(null);
   };
 
   return (
@@ -25,7 +24,7 @@ export function TxDetail(props: Props) {
             <Text className="text-foreground text-xl font-bold">
               Transaction detail
             </Text>
-            <Text className="text-muted text-xs">{tx?.txid}</Text>
+            <Text className="text-muted text-xs">{txId}</Text>
           </View>
         </BottomSheet.Content>
       </BottomSheet.Portal>

@@ -18,7 +18,7 @@ export function Address(props: Props) {
   const query = useGetTxs(address);
   const data = query.data?.pages.flat();
   const sections = groupTxs(data);
-  const [selectedTx, setSelectedTx] = useState<Tx | null>(null);
+  const [selectedTxId, setSelectedTxId] = useState<string | null>(null);
 
   const handleEndReached = () => {
     if (!query.data) return;
@@ -30,7 +30,7 @@ export function Address(props: Props) {
   };
 
   const renderTxItem = ({ item }: { item: Tx }) => (
-    <TxItem {...item} address={address} onPress={() => setSelectedTx(item)} />
+    <TxItem {...item} address={address} onPress={setSelectedTxId} />
   );
 
   const renderListFooter = () => {
@@ -87,7 +87,7 @@ export function Address(props: Props) {
           onEndReached={handleEndReached}
         />
       </ScrollShadow>
-      <TxDetail tx={selectedTx} setSelectedTx={setSelectedTx} />
+      <TxDetail txId={selectedTxId} setSelectedTxId={setSelectedTxId} />
     </View>
   );
 }
