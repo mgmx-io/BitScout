@@ -10,6 +10,7 @@ import {
   getAddress,
   getHistoricalPrice,
   getPrices,
+  getTx,
   getTxs,
   getValidateAddress,
 } from "./endpoints";
@@ -66,5 +67,13 @@ export function useGetTxs(address: string) {
       if (lastPage.length < MAX_RESULTS) return undefined;
       return lastPage[lastPage.length - 1].txid;
     },
+  });
+}
+
+export function useGetTx(txid: string | null) {
+  return useQuery({
+    queryKey: ["tx", txid],
+    queryFn: () => getTx(txid!),
+    enabled: !!txid,
   });
 }

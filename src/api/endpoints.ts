@@ -4,6 +4,7 @@ import {
   GetHistoricalPriceRequest,
   GetHistoricalPriceResponse,
   GetPricesResponse,
+  GetTxResponse,
   GetTxsResponse,
   GetValidateAddressResponse,
 } from "@/types/api";
@@ -44,5 +45,11 @@ export async function getTxs(address: string, txid: string) {
   const { data } = await api.get<GetTxsResponse>(`/address/${address}/txs`, {
     params: { after_txid: txid },
   });
+  return data;
+}
+
+// https://mempool.space/api/tx/15e10745f15593a899cef391191bdd3d7c12412cc4696b7bcb669d0feadc8521
+export async function getTx(txid: string) {
+  const { data } = await api.get<GetTxResponse>(`/tx/${txid}`);
   return data;
 }

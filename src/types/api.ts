@@ -86,3 +86,5 @@ export type Tx = {
 };
 
 export type GetTxsResponse = Tx[];
+
+export type GetTxResponse = Tx;
