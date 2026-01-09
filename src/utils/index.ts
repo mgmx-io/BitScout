@@ -2,6 +2,7 @@ import { GetAddressResponse, Tx, TxOutput, TxVin } from "@/types/api";
 import { FullAddress, SortField, SortOrder, TxGroup } from "@/types/misc";
 import { Big } from "big.js";
 import * as Haptics from "expo-haptics";
+import * as LocalAuthentication from "expo-local-authentication";
 import { Platform } from "react-native";
 
 export function computeBalance(data: GetAddressResponse | null) {
@@ -185,4 +186,16 @@ export function formatDate(unix?: number) {
   });
 
   return date;
+}
+
+export async function authenticate() {
+  try {
+    const hasHardware = await LocalAuthentication.hasHardwareAsync();
+    const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+    if (!hasHardware || !isEnrolled) return true;
+    const result = await LocalAuthentication.authenticateAsync();
+    return result.success;
+  } catch {
+    return true;
+  }
 }
