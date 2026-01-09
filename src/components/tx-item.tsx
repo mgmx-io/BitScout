@@ -1,19 +1,22 @@
 import { useDisplayValue } from "@/hooks/use-display-value";
 import { Tx } from "@/types/api";
 import { computeTxValue, formatDate } from "@/utils";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import Icon2 from "./icon2";
 
-type Props = Tx & { address: string };
+type Props = Tx & { address: string; onPress?: () => void };
 
 export function TxItem(props: Props) {
-  const { address, vin, vout, status } = props;
+  const { address, vin, vout, status, onPress } = props;
   const value = computeTxValue(vin, vout, address).toNumber();
   const displayValue = useDisplayValue(value);
   const income = value > 0;
 
   return (
-    <View className="flex-row items-center justify-between gap-4 p-4">
+    <TouchableOpacity
+      className="flex-row items-center justify-between gap-4 p-4"
+      onPress={onPress}
+    >
       <Icon2
         name={income ? "arrow-collapse-down" : "arrow-expand-up"}
         size={20}
@@ -26,6 +29,6 @@ export function TxItem(props: Props) {
         </Text>
       </View>
       <Text className="text-foreground font-bold">{displayValue}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }

@@ -1,11 +1,14 @@
 import { useGetTxs } from "@/api/queries";
 import { AddressSection } from "@/components/address-section";
 import Icon from "@/components/icon";
+import { TxDetail } from "@/components/tx-detail";
 import { TxItem } from "@/components/tx-item";
+import { Tx } from "@/types/api";
 import { groupTxs } from "@/utils";
 import { StaticScreenProps } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button, Divider, ScrollShadow } from "heroui-native";
+import { useState } from "react";
 import { ActivityIndicator, SectionList, Text, View } from "react-native";
 
 type Props = StaticScreenProps<{ address: string; addressId: string }>;
@@ -15,6 +18,7 @@ export function Address(props: Props) {
   const query = useGetTxs(address);
   const data = query.data?.pages.flat();
   const sections = groupTxs(data);
+  const [selectedTx, setSelectedTx] = useState<Tx | null>(null);
 
   const handleEndReached = () => {
     if (!query.data) return;
@@ -23,6 +27,15 @@ export function Address(props: Props) {
     if (!query.hasNextPage) return;
     if (query.isFetchingNextPage) return;
     query.fetchNextPage();
+  };
+
+  const renderTxItem = ({ item }: { item: Tx }) => (
+    <TxItem {...item} address={address} onPress={() => setSelectedTx(item)} />
+  );
+
+  const renderListFooter = () => {
+    if (!query.isFetchingNextPage) return null;
+    return <ActivityIndicator />;
   };
 
   if (query.isPending) {
@@ -64,19 +77,17 @@ export function Address(props: Props) {
           sections={sections}
           keyExtractor={(item) => item.txid}
           contentContainerClassName="grow"
-          renderItem={({ item }) => <TxItem address={address} {...item} />}
+          renderItem={renderTxItem}
           renderSectionHeader={({ section }) => (
             <AddressSection title={section.title} />
           )}
           ItemSeparatorComponent={Divider}
-          ListFooterComponent={() => {
-            if (!query.isFetchingNextPage) return null;
-            return <ActivityIndicator />;
-          }}
+          ListFooterComponent={renderListFooter}
           showsVerticalScrollIndicator={false}
           onEndReached={handleEndReached}
         />
       </ScrollShadow>
+      <TxDetail tx={selectedTx} setSelectedTx={setSelectedTx} />
     </View>
   );
 }
