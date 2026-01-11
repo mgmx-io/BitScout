@@ -1,6 +1,6 @@
 import { useValidateAddress } from "@/api/queries";
 import { useAppStore } from "@/stores";
-import { compactAddress, Feedback } from "@/utils";
+import { compactAddress, Feedback, promptInAppReview } from "@/utils";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import * as Clipboard from "expo-clipboard";
 import { BottomSheet, Button, Spinner, useToast } from "heroui-native";
@@ -37,11 +37,12 @@ export function TrackAddress() {
       variant: "default",
       label: "Address added",
       icon: <Icon name="check" size={20} colorClassName="accent-success" />,
-      onShow: () => {
+      onShow() {
         Feedback.success();
         setValue("");
       },
     });
+    void promptInAppReview();
   };
 
   const submitAddress = (addrRaw: string) => {
@@ -61,8 +62,6 @@ export function TrackAddress() {
       },
     });
   };
-
-  const handleSubmit = () => submitAddress(value);
 
   const handlePaste = async () => {
     const text = await Clipboard.getStringAsync();
@@ -101,7 +100,7 @@ export function TrackAddress() {
                 autoComplete="off"
                 autoCapitalize="none"
                 autoCorrect={false}
-                onSubmitEditing={handleSubmit}
+                onSubmitEditing={() => submitAddress(value)}
               />
               <TouchableOpacity
                 className="bg-surface aspect-square h-10 items-center justify-center rounded-full px-2"
@@ -117,7 +116,7 @@ export function TrackAddress() {
             </View>
             <Button
               variant="tertiary"
-              onPress={handleSubmit}
+              onPress={() => submitAddress(value)}
               isDisabled={isPending || isEmpty}
             >
               {isPending ? <Spinner /> : "Submit"}

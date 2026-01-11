@@ -1,8 +1,10 @@
+import { mmkvInstance } from "@/config/mmkv";
 import { GetAddressResponse, Tx, TxOutput, TxVin } from "@/types/api";
 import { FullAddress, SortField, SortOrder, TxGroup } from "@/types/misc";
 import { Big } from "big.js";
 import * as Haptics from "expo-haptics";
 import * as LocalAuthentication from "expo-local-authentication";
+import * as StoreReview from "expo-store-review";
 import { Platform } from "react-native";
 
 export function computeBalance(data: GetAddressResponse | null) {
@@ -198,4 +200,22 @@ export async function authenticate() {
   } catch {
     return true;
   }
+}
+
+export const HOUR = 1000 * 60 * 60;
+
+export const DAY = HOUR * 24;
+
+export async function promptInAppReview() {
+  try {
+    const key = "LAST_PROMPT_AT";
+    const now = Date.now();
+    const lastPromptAt = mmkvInstance.getNumber(key) ?? 0;
+    const shouldPrompt = now - lastPromptAt >= DAY * 30;
+    if (!shouldPrompt) return;
+    const canPrompt = await StoreReview.hasAction();
+    if (!canPrompt) return;
+    await StoreReview.requestReview();
+    mmkvInstance.set(key, now);
+  } catch {}
 }

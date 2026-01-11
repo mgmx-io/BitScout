@@ -1,15 +1,14 @@
 import { mmkvStorage } from "@/config/mmkv";
+import { DAY } from "@/utils";
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
 import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { PropsWithChildren } from "react";
 
-const HOUR = 1000 * 60 * 60;
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      gcTime: HOUR * 24,
+      gcTime: DAY,
     },
   },
 });
