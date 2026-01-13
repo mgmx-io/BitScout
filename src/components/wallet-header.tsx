@@ -8,7 +8,8 @@ import Icon from "./icon";
 
 export function WalletHeader() {
   const balance = useBalance();
-  const { unit, visible, cycleUnit, toggleVisibility } = usePreferencesStore();
+  const { displayUnit, visible, cycleUnit, toggleVisibility } =
+    usePreferencesStore();
   const displayValue = useDisplayValue(balance);
 
   const handleUnitPress = () => {
@@ -40,7 +41,7 @@ export function WalletHeader() {
           className="bg-surface h-8 w-12 items-center justify-center rounded shadow-xs"
           onPress={handleUnitPress}
         >
-          <Text className="text-foreground font-bold">{unit}</Text>
+          <Text className="text-foreground font-bold">{displayUnit}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity

@@ -11,7 +11,7 @@ export type FullAddress = Address & {
   query: UseQueryResult<GetAddressResponse, Error>;
 };
 
-export type Unit = "btc" | "sats" | "usd";
+export type DisplayUnit = "btc" | "sats" | "usd";
 
 export type SortField = "balance" | "txCount";
 
