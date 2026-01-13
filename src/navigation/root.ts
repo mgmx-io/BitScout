@@ -1,6 +1,8 @@
 import { AddressMenu } from "@/components/address-menu";
+import { SettingsButton } from "@/components/settings-button";
 import { WalletSwitch } from "@/components/wallet-switch";
 import { Address } from "@/screens/address";
+import { Settings } from "@/screens/settings";
 import { Wallet } from "@/screens/wallet";
 import { compactAddress } from "@/utils";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -13,6 +15,7 @@ export default createNativeStackNavigator({
       options: {
         title: "",
         headerLeft: WalletSwitch,
+        headerRight: SettingsButton,
         headerShadowVisible: false,
       },
     },
@@ -26,6 +29,13 @@ export default createNativeStackNavigator({
           headerRight: (props) =>
             createElement(AddressMenu, { ...props, address, addressId }),
         };
+      },
+    },
+    Settings: {
+      screen: Settings,
+      options: {
+        title: "Settings",
+        headerShadowVisible: false,
       },
     },
   },
