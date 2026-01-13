@@ -1,11 +1,20 @@
 import { mmkvInstance } from "@/config/mmkv";
 import { GetAddressResponse, Tx, TxOutput, TxVin } from "@/types/api";
-import { FullAddress, SortField, SortOrder, TxGroup } from "@/types/misc";
+import {
+  DisplayUnit,
+  FiatCurrency,
+  FullAddress,
+  SortField,
+  SortOrder,
+  TxGroup,
+} from "@/types/misc";
 import { Big } from "big.js";
 import * as Haptics from "expo-haptics";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as StoreReview from "expo-store-review";
 import { Platform } from "react-native";
+
+export const UNITS: DisplayUnit[] = ["BTC", "sats", "fiat"];
 
 export function computeBalance(data: GetAddressResponse | null) {
   if (data === null) return null;
@@ -65,11 +74,11 @@ export function formatBtc(num: Big) {
   }).format(val.toNumber());
 }
 
-export function formatUsd(num: Big) {
+export function formatFiat(num: Big, currency: FiatCurrency) {
   const val = new Big(num);
   return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "USD",
+    currency,
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(val.toNumber());
@@ -79,7 +88,7 @@ export function satsToBtc(sats: Big) {
   return sats.div(new Big(1e8));
 }
 
-export function satsToUsd(sats: Big, price: Big) {
+export function satsToFiat(sats: Big, price: Big) {
   return satsToBtc(sats).times(price);
 }
 

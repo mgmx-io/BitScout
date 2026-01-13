@@ -1,34 +1,23 @@
-import { Feedback } from "@/utils";
+import { usePreferencesStore } from "@/stores/preferences";
+import { DisplayUnit } from "@/types/misc";
+import { Feedback, UNITS } from "@/utils";
 import { BottomSheet } from "heroui-native";
 import { Text, TouchableOpacity, View } from "react-native";
 import { BottomSheetBlurOverlay } from "./blur-overlay";
 import Icon from "./icon";
 
-type Option = {
-  id: string;
-  label: string;
-};
-
 type Props = {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  options: Option[];
-  selectedId: string;
-  onSelect: (id: string) => void;
-  title: string;
 };
 
-export function DisplayUnitPickerSheet({
-  isOpen,
-  onOpenChange,
-  options,
-  selectedId,
-  onSelect,
-  title,
-}: Props) {
-  const handleSelect = (id: string) => {
+export function DisplayUnitPickerSheet({ isOpen, onOpenChange }: Props) {
+  const { displayUnit, fiatCurrency, setDisplayUnit } = usePreferencesStore();
+
+  const handleSelect = (id: DisplayUnit) => {
     Feedback.selection();
-    onSelect(id);
+    setDisplayUnit(id);
+    onOpenChange(false);
   };
 
   return (
@@ -38,21 +27,21 @@ export function DisplayUnitPickerSheet({
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
             <Text className="text-foreground px-4 text-lg font-bold">
-              {title}
+              Select display unit
             </Text>
             <View className="gap-2">
-              {options.map((option) => {
-                const isSelected = option.id === selectedId;
+              {UNITS.map((option) => {
+                const isSelected = option === displayUnit;
                 return (
                   <TouchableOpacity
-                    key={option.id}
+                    key={option}
                     className={`flex-row items-center justify-between rounded-full px-4 py-3 ${
                       isSelected ? "bg-surface-secondary" : "bg-surface"
                     }`}
-                    onPress={() => handleSelect(option.id)}
+                    onPress={() => handleSelect(option)}
                   >
                     <Text className="text-foreground font-bold">
-                      {option.label}
+                      {option === "fiat" ? fiatCurrency : option}
                     </Text>
                     {isSelected ? (
                       <Icon

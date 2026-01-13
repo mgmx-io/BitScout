@@ -11,7 +11,7 @@ export type FullAddress = Address & {
   query: UseQueryResult<GetAddressResponse, Error>;
 };
 
-export type DisplayUnit = "btc" | "sats" | "usd";
+export type DisplayUnit = "BTC" | "sats" | "fiat";
 
 export type FiatCurrency = keyof ExchangeRate;
 

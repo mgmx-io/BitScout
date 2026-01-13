@@ -1,3 +1,5 @@
+import { usePreferencesStore } from "@/stores/preferences";
+import { FiatCurrency } from "@/types/misc";
 import { Feedback } from "@/utils";
 import { BottomSheet } from "heroui-native";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -5,25 +7,32 @@ import { BottomSheetBlurOverlay } from "./blur-overlay";
 import Icon from "./icon";
 
 type Option = {
-  id: string;
+  id: FiatCurrency;
   label: string;
 };
 
 type Props = {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  options: Option[];
-  selectedId: string;
-  onSelect: (id: string) => void;
-  title: string;
 };
 
-export function CurrencyPickerSheet(props: Props) {
-  const { isOpen, onOpenChange, options, selectedId, onSelect, title } = props;
+const currencyOptions: Option[] = [
+  { id: "USD", label: "US dollar (USD)" },
+  { id: "EUR", label: "Euro (EUR)" },
+  { id: "GBP", label: "Pound sterling (GBP)" },
+  { id: "CAD", label: "Canadian dollar (CAD)" },
+  { id: "CHF", label: "Swiss franc (CHF)" },
+  { id: "AUD", label: "Australian dollar (AUD)" },
+  { id: "JPY", label: "Japanese yen (JPY)" },
+];
 
-  const handleSelect = (id: string) => {
+export function CurrencyPickerSheet({ isOpen, onOpenChange }: Props) {
+  const { fiatCurrency, setFiatCurrency } = usePreferencesStore();
+
+  const handleSelect = (id: FiatCurrency) => {
     Feedback.selection();
-    onSelect(id);
+    setFiatCurrency(id);
+    onOpenChange(false);
   };
 
   return (
@@ -33,11 +42,11 @@ export function CurrencyPickerSheet(props: Props) {
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
             <Text className="text-foreground px-4 text-lg font-bold">
-              {title}
+              Select currency
             </Text>
             <View className="gap-2">
-              {options.map((option) => {
-                const isSelected = option.id === selectedId;
+              {currencyOptions.map((option) => {
+                const isSelected = option.id === fiatCurrency;
                 return (
                   <TouchableOpacity
                     key={option.id}

@@ -1,9 +1,8 @@
 import { mmkvStorage } from "@/config/mmkv";
 import { DisplayUnit, FiatCurrency, SortField, SortOrder } from "@/types/misc";
+import { UNITS } from "@/utils";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-
-const ORDER: DisplayUnit[] = ["btc", "sats", "usd"];
 
 type State = {
   displayUnit: DisplayUnit;
@@ -12,6 +11,7 @@ type State = {
   sortField: SortField;
   sortOrder: SortOrder;
   cycleUnit: () => void;
+  setDisplayUnit: (unit: DisplayUnit) => void;
   setFiatCurrency: (currency: FiatCurrency) => void;
   toggleVisibility: () => void;
   selectSortField: (field: SortField) => void;
@@ -21,7 +21,7 @@ type State = {
 export const usePreferencesStore = create<State>()(
   persist(
     (set, get) => ({
-      displayUnit: "btc",
+      displayUnit: UNITS[0],
       fiatCurrency: "USD",
       visible: true,
       sortField: "balance",
@@ -29,9 +29,13 @@ export const usePreferencesStore = create<State>()(
 
       cycleUnit: () => {
         const current = get().displayUnit;
-        const index = ORDER.indexOf(current);
-        const next = ORDER[(index + 1) % ORDER.length];
+        const index = UNITS.indexOf(current);
+        const next = UNITS[(index + 1) % UNITS.length];
         set({ displayUnit: next });
+      },
+
+      setDisplayUnit: (unit) => {
+        set({ displayUnit: unit });
       },
 
       setFiatCurrency: (currency) => {

@@ -8,7 +8,7 @@ import Icon from "./icon";
 
 export function WalletHeader() {
   const balance = useBalance();
-  const { displayUnit, visible, cycleUnit, toggleVisibility } =
+  const { displayUnit, fiatCurrency, visible, cycleUnit, toggleVisibility } =
     usePreferencesStore();
   const displayValue = useDisplayValue(balance);
 
@@ -41,7 +41,9 @@ export function WalletHeader() {
           className="bg-surface h-8 w-12 items-center justify-center rounded shadow-xs"
           onPress={handleUnitPress}
         >
-          <Text className="text-foreground font-bold">{displayUnit}</Text>
+          <Text className="text-foreground font-bold">
+            {displayUnit === "fiat" ? fiatCurrency : displayUnit}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
