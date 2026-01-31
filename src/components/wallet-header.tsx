@@ -88,10 +88,10 @@ export function WalletHeader() {
         </TouchableOpacity>
 
         {isActive && (
-          <View className="bg-surface h-8 items-center justify-center rounded px-4 shadow-xs">
+          <View className="bg-surface h-8 items-center justify-center rounded shadow-xs">
             <AnimatedText
               text={animatedDate}
-              className="text-foreground font-bold"
+              className="text-foreground mx-4 w-full text-center font-bold"
             />
           </View>
         )}
