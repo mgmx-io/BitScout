@@ -25,6 +25,16 @@ export function WalletHeader() {
     return `${Number(state.y.balance.value.value).toFixed(8)} BTC`;
   });
 
+  const animatedDate = useDerivedValue(() => {
+    const timestamp = Number(state.x.value.value);
+    const date = new Date(timestamp);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  });
+
   const handleUnitPress = () => {
     Feedback.selection();
     cycleUnit();
@@ -76,6 +86,15 @@ export function WalletHeader() {
             colorClassName="accent-foreground"
           />
         </TouchableOpacity>
+
+        {isActive && (
+          <View className="bg-surface h-8 items-center justify-center rounded px-4 shadow-xs">
+            <AnimatedText
+              text={animatedDate}
+              className="text-foreground font-bold"
+            />
+          </View>
+        )}
       </View>
       <BalanceChart state={state} isActive={isActive} />
     </View>
