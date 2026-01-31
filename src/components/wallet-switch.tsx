@@ -1,10 +1,10 @@
 import { useWallets } from "@/hooks/use-wallets";
 import { useAppStore } from "@/stores";
 import { Feedback } from "@/utils";
-import { BottomSheet, Button } from "heroui-native";
+import { Button } from "heroui-native";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { BottomSheetBlurOverlay } from "./blur-overlay";
+import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
 
 export function WalletSwitch() {
@@ -42,7 +42,6 @@ export function WalletSwitch() {
       </BottomSheet.Trigger>
 
       <BottomSheet.Portal>
-        <BottomSheetBlurOverlay />
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
             <Text className="text-foreground px-4 text-lg">

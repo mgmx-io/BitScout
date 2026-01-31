@@ -1,9 +1,8 @@
 import { usePreferencesStore } from "@/stores/preferences";
 import { DisplayUnit } from "@/types/misc";
 import { Feedback, UNITS } from "@/utils";
-import { BottomSheet } from "heroui-native";
 import { Text, TouchableOpacity, View } from "react-native";
-import { BottomSheetBlurOverlay } from "./blur-overlay";
+import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
 
 type Props = {
@@ -23,7 +22,6 @@ export function DisplayUnitPickerSheet({ isOpen, onOpenChange }: Props) {
   return (
     <BottomSheet isOpen={isOpen} onOpenChange={onOpenChange}>
       <BottomSheet.Portal>
-        <BottomSheetBlurOverlay />
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
             <Text className="text-foreground px-4 text-lg font-bold">

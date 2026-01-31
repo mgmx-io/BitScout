@@ -3,10 +3,10 @@ import { useAppStore } from "@/stores";
 import { compactAddress, Feedback, promptInAppReview } from "@/utils";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import * as Clipboard from "expo-clipboard";
-import { BottomSheet, Button, Spinner, useToast } from "heroui-native";
+import { Button, Spinner, useToast } from "heroui-native";
 import { useMemo, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { BottomSheetBlurOverlay } from "./blur-overlay";
+import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
 
 export function TrackAddress() {
@@ -83,7 +83,6 @@ export function TrackAddress() {
       </BottomSheet.Trigger>
 
       <BottomSheet.Portal>
-        <BottomSheetBlurOverlay />
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
             <Text className="text-foreground px-4 text-lg">

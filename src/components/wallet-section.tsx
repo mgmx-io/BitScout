@@ -2,10 +2,10 @@ import { useAddresses } from "@/hooks/use-addresses";
 import { usePreferencesStore } from "@/stores/preferences";
 import { SortField } from "@/types/misc";
 import { Feedback } from "@/utils";
-import { BottomSheet, Chip } from "heroui-native";
+import { Chip } from "heroui-native";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { BottomSheetBlurOverlay } from "./blur-overlay";
+import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
 
 const sortOptions: {
@@ -59,7 +59,6 @@ export function WalletSection() {
       </View>
 
       <BottomSheet.Portal>
-        <BottomSheetBlurOverlay />
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
             <Text className="text-foreground px-4 text-lg font-bold">

@@ -1,9 +1,9 @@
 import { useGetTx } from "@/api/queries";
 import { Feedback, formatDate } from "@/utils";
 import * as Clipboard from "expo-clipboard";
-import { BottomSheet, Divider, useToast } from "heroui-native";
+import { Divider, useToast } from "heroui-native";
 import { Linking, Text, TouchableOpacity, View } from "react-native";
-import { BottomSheetBlurOverlay } from "./blur-overlay";
+import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
 import Icon2 from "./icon2";
 
@@ -73,7 +73,6 @@ export function TxDetail(props: Props) {
   return (
     <BottomSheet isOpen={isOpen} onOpenChange={handleOpenChange}>
       <BottomSheet.Portal>
-        <BottomSheetBlurOverlay />
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4 p-4">
             <View className="gap-2">

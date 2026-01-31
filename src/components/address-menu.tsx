@@ -2,10 +2,10 @@ import { useAppStore } from "@/stores";
 import { Feedback } from "@/utils";
 import { useNavigation } from "@react-navigation/native";
 import * as Clipboard from "expo-clipboard";
-import { BottomSheet, useToast } from "heroui-native";
+import { useToast } from "heroui-native";
 import { useState } from "react";
 import { Linking, Text, TouchableOpacity, View } from "react-native";
-import { BottomSheetBlurOverlay } from "./blur-overlay";
+import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
 import Icon2 from "./icon2";
 
@@ -111,7 +111,6 @@ export function AddressMenu(props: Props) {
       </BottomSheet.Trigger>
 
       <BottomSheet.Portal>
-        <BottomSheetBlurOverlay />
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-2">
             {options.map((option) => (
