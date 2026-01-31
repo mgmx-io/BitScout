@@ -7,7 +7,6 @@ import { useState } from "react";
 import { Linking, Text, TouchableOpacity, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
-import Icon2 from "./icon2";
 
 const options = [
   {
@@ -47,7 +46,9 @@ export function AddressMenu(props: Props) {
     toast.show({
       variant: "default",
       label: "Address copied to clipboard!",
-      icon: <Icon name="check" size={20} colorClassName="accent-success" />,
+      icon: (
+        <Icon.Material name="check" size={20} colorClassName="accent-success" />
+      ),
     });
     setIsOpen(false);
   };
@@ -67,7 +68,13 @@ export function AddressMenu(props: Props) {
         variant: "default",
         label: "Unable to open explorer",
         description: url,
-        icon: <Icon name="error" size={20} colorClassName="accent-danger" />,
+        icon: (
+          <Icon.Material
+            name="error"
+            size={20}
+            colorClassName="accent-danger"
+          />
+        ),
       });
       setIsOpen(false);
     }
@@ -79,7 +86,9 @@ export function AddressMenu(props: Props) {
     toast.show({
       variant: "default",
       label: "Address removed!",
-      icon: <Icon name="check" size={20} colorClassName="accent-success" />,
+      icon: (
+        <Icon.Material name="check" size={20} colorClassName="accent-success" />
+      ),
     });
     setIsOpen(false);
     goBack();
@@ -102,7 +111,7 @@ export function AddressMenu(props: Props) {
           onPress={Feedback.selection}
           className="aspect-square h-full items-center justify-center"
         >
-          <Icon2
+          <Icon.Community
             name="dots-vertical"
             size={20}
             colorClassName="accent-foreground"
@@ -120,7 +129,7 @@ export function AddressMenu(props: Props) {
                 onPress={handleOptionPress(option.id)}
               >
                 <View className="bg-surface items-center justify-center rounded-full p-2">
-                  <Icon2
+                  <Icon.Community
                     name={option.icon}
                     size={20}
                     colorClassName="accent-foreground"

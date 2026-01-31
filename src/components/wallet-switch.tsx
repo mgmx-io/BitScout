@@ -34,7 +34,7 @@ export function WalletSwitch() {
           className="bg-surface ml-4 h-8 flex-row items-center gap-2 rounded pr-2 pl-4 shadow-xs"
         >
           <Text className="text-foreground font-bold">{selected.name}</Text>
-          <Icon
+          <Icon.Material
             name="unfold-more"
             size={20}
             colorClassName="accent-foreground"
@@ -62,7 +62,11 @@ export function WalletSwitch() {
             </View>
 
             <Button variant="tertiary" onPress={handleCreateWallet}>
-              <Icon name="add" size={20} colorClassName="accent-foreground" />
+              <Icon.Material
+                name="add"
+                size={20}
+                colorClassName="accent-foreground"
+              />
               <Button.Label>New wallet</Button.Label>
             </Button>
           </View>

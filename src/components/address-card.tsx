@@ -9,7 +9,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Skeleton } from "heroui-native";
 import { Text, TouchableOpacity, View } from "react-native";
-import Icon2 from "./icon2";
+import Icon from "./icon";
 
 type Props = FullAddress;
 
@@ -30,7 +30,11 @@ export function AddressCard(props: Props) {
         navigate("Address", { address, addressId: id });
       }}
     >
-      <Icon2 name="wallet" size={20} colorClassName="accent-foreground" />
+      <Icon.Community
+        name="wallet"
+        size={20}
+        colorClassName="accent-foreground"
+      />
       <Text className="text-foreground flex-1">{compactAddress(address)}</Text>
       <View className="items-end gap-1">
         <Skeleton

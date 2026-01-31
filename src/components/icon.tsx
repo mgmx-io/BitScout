@@ -1,4 +1,13 @@
-import Icon from "@expo/vector-icons/MaterialIcons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { withUniwind } from "uniwind";
 
-export default withUniwind(Icon);
+const IconMaterial = withUniwind(MaterialIcons);
+const IconCommunity = withUniwind(MaterialCommunityIcons);
+
+const Icon = {
+  Material: IconMaterial,
+  Community: IconCommunity,
+};
+
+export default Icon;

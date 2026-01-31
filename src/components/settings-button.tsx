@@ -14,7 +14,11 @@ export function SettingsButton() {
       }}
       className="aspect-square h-full items-center justify-center"
     >
-      <Icon name="settings" size={20} colorClassName="accent-foreground" />
+      <Icon.Material
+        name="settings"
+        size={20}
+        colorClassName="accent-foreground"
+      />
     </TouchableOpacity>
   );
 }

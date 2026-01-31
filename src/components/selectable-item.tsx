@@ -25,12 +25,12 @@ const Label = ({ children }: { children: ReactNode }) => (
 
 type IndicatorProps = {
   isSelected: boolean;
-  icon?: ComponentProps<typeof Icon>["name"];
+  icon?: ComponentProps<typeof Icon.Material>["name"];
 };
 
 const Indicator = ({ isSelected, icon = "check" }: IndicatorProps) =>
   isSelected ? (
-    <Icon name={icon} size={20} colorClassName="accent-foreground" />
+    <Icon.Material name={icon} size={20} colorClassName="accent-foreground" />
   ) : null;
 
 export const SelectableItem = Object.assign(Root, {

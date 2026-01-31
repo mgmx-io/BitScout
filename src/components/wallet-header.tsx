@@ -50,7 +50,7 @@ export function WalletHeader() {
           className="bg-surface h-8 w-12 items-center justify-center rounded shadow-xs"
           onPress={handleVisibilityPress}
         >
-          <Icon
+          <Icon.Material
             name={visible ? "visibility-off" : "visibility"}
             size={20}
             colorClassName="accent-foreground"

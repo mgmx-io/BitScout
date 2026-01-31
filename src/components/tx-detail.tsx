@@ -5,7 +5,6 @@ import { Divider, useToast } from "heroui-native";
 import { Linking, Text, TouchableOpacity, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
-import Icon2 from "./icon2";
 
 type Props = {
   txId: string | null;
@@ -30,7 +29,9 @@ export function TxDetail(props: Props) {
     toast.show({
       variant: "default",
       label: "ID copied to clipboard",
-      icon: <Icon name="check" size={20} colorClassName="accent-success" />,
+      icon: (
+        <Icon.Material name="check" size={20} colorClassName="accent-success" />
+      ),
     });
   };
 
@@ -47,7 +48,13 @@ export function TxDetail(props: Props) {
         variant: "default",
         label: "Unable to open explorer",
         description: url,
-        icon: <Icon name="error" size={20} colorClassName="accent-danger" />,
+        icon: (
+          <Icon.Material
+            name="error"
+            size={20}
+            colorClassName="accent-danger"
+          />
+        ),
       });
     }
   };
@@ -118,7 +125,7 @@ export function TxDetail(props: Props) {
                 onPress={handleCopyTxId}
               >
                 <View className="bg-surface items-center justify-center rounded-full p-2">
-                  <Icon2
+                  <Icon.Community
                     name="content-copy"
                     size={20}
                     colorClassName="accent-foreground"
@@ -132,7 +139,7 @@ export function TxDetail(props: Props) {
                 onPress={handleOpenExplorer}
               >
                 <View className="bg-surface items-center justify-center rounded-full p-2">
-                  <Icon2
+                  <Icon.Community
                     name="apple-safari"
                     size={20}
                     colorClassName="accent-foreground"

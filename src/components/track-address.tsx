@@ -21,7 +21,9 @@ export function TrackAddress() {
     toast.show({
       variant: "default",
       label: error,
-      icon: <Icon name="error" size={20} colorClassName="accent-danger" />,
+      icon: (
+        <Icon.Material name="error" size={20} colorClassName="accent-danger" />
+      ),
       onShow: () => {
         Feedback.error();
         setValue("");
@@ -36,7 +38,9 @@ export function TrackAddress() {
     toast.show({
       variant: "default",
       label: "Address added",
-      icon: <Icon name="check" size={20} colorClassName="accent-success" />,
+      icon: (
+        <Icon.Material name="check" size={20} colorClassName="accent-success" />
+      ),
       onShow() {
         Feedback.success();
         setValue("");
@@ -77,7 +81,11 @@ export function TrackAddress() {
           className="absolute right-4 bottom-4 z-10"
           variant="tertiary"
         >
-          <Icon name="add" size={20} colorClassName="accent-foreground" />
+          <Icon.Material
+            name="add"
+            size={20}
+            colorClassName="accent-foreground"
+          />
           <Button.Label>Address</Button.Label>
         </Button>
       </BottomSheet.Trigger>
@@ -106,7 +114,7 @@ export function TrackAddress() {
                 onPress={handlePaste}
                 disabled={isPending}
               >
-                <Icon
+                <Icon.Material
                   name="content-paste"
                   size={20}
                   colorClassName="accent-field-placeholder"

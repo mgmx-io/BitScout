@@ -2,7 +2,7 @@ import { useDisplayValue } from "@/hooks/use-display-value";
 import { Tx } from "@/types/api";
 import { Feedback, computeTxValue, formatDate } from "@/utils";
 import { Text, TouchableOpacity, View } from "react-native";
-import Icon2 from "./icon2";
+import Icon from "./icon";
 
 type Props = Tx & {
   address: string;
@@ -25,7 +25,7 @@ export function TxItem(props: Props) {
       className="flex-row items-center justify-between gap-4 p-4"
       onPress={handlePress}
     >
-      <Icon2
+      <Icon.Community
         name={income ? "arrow-collapse-down" : "arrow-expand-up"}
         size={20}
         colorClassName="accent-foreground"
