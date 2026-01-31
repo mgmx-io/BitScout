@@ -1,3 +1,4 @@
+import { useGetHistoricalPriceMutation } from "@/api/queries";
 import { useBalance } from "@/hooks/use-balance";
 import { useAppStore } from "@/stores";
 import { useSnapshotStore } from "@/stores/snapshot";
@@ -7,20 +8,36 @@ export function useSnapshot() {
   const balance = useBalance();
   const selectedId = useAppStore((s) => s.selectedId);
   const addSnapshot = useSnapshotStore((s) => s.addSnapshot);
-  const prevBalanceRef = useRef<number | null>(null);
-  const prevWalletIdRef = useRef<string>(selectedId);
+  const { mutate } = useGetHistoricalPriceMutation();
+  const prevBalance = useRef<number | null>(null);
+  const prevWalletId = useRef<string>(selectedId);
 
   useEffect(() => {
     // Reset when wallet changes
-    if (prevWalletIdRef.current !== selectedId) {
-      prevBalanceRef.current = null;
-      prevWalletIdRef.current = selectedId;
+    if (prevWalletId.current !== selectedId) {
+      prevBalance.current = null;
+      prevWalletId.current = selectedId;
     }
 
     // Save if balance is loaded and different from previous
-    if (balance !== null && balance !== prevBalanceRef.current) {
-      addSnapshot(balance);
-      prevBalanceRef.current = balance;
+    if (balance !== null && balance !== prevBalance.current) {
+      const timestamp = Math.floor(Date.now() / 1000);
+
+      mutate(
+        { timestamp },
+        {
+          onSuccess: ({ prices }) => {
+            addSnapshot({
+              balance,
+              prices: prices[0],
+            });
+            prevBalance.current = balance;
+          },
+          onError: (error) => {
+            console.error("Failed to fetch historical price:", error);
+          },
+        },
+      );
     }
-  }, [balance, selectedId, addSnapshot]);
+  }, [balance, selectedId, addSnapshot, mutate]);
 }

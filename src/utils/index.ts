@@ -1,9 +1,14 @@
 import { getAddress } from "@/api/endpoints";
 import { mmkvInstance } from "@/config/mmkv";
-import { GetAddressResponse, Tx, TxOutput, TxVin } from "@/types/api";
+import {
+  FiatCurrency,
+  GetAddressResponse,
+  Tx,
+  TxOutput,
+  TxVin,
+} from "@/types/api";
 import {
   DisplayUnit,
-  FiatCurrency,
   FullAddress,
   SortField,
   SortOrder,

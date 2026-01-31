@@ -57,6 +57,12 @@ export function useValidateAddress() {
   });
 }
 
+export function useGetHistoricalPriceMutation() {
+  return useMutation({
+    mutationFn: getHistoricalPrice,
+  });
+}
+
 export function useGetTxs(address: string) {
   return useInfiniteQuery({
     queryKey: ["address", address, "txs"],

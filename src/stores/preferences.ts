@@ -1,5 +1,6 @@
 import { mmkvStorage } from "@/config/mmkv";
-import { DisplayUnit, FiatCurrency, SortField, SortOrder } from "@/types/misc";
+import { FiatCurrency } from "@/types/api";
+import { DisplayUnit, SortField, SortOrder } from "@/types/misc";
 import { UNITS } from "@/utils";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";

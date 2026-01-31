@@ -81,12 +81,8 @@ export function TrackAddress() {
           className="absolute right-4 bottom-4 z-10"
           variant="tertiary"
         >
-          <Icon.Material
-            name="add"
-            size={20}
-            colorClassName="accent-foreground"
-          />
-          <Button.Label>Address</Button.Label>
+          <Icon.Material name="add" size={20} colorClassName="accent-accent" />
+          <Button.Label className="text-accent font-bold">Address</Button.Label>
         </Button>
       </BottomSheet.Trigger>
 

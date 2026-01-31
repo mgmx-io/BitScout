@@ -1,5 +1,5 @@
 import { UseQueryResult } from "@tanstack/react-query";
-import { ExchangeRate, GetAddressResponse, Tx } from "./api";
+import { GetAddressResponse, Tx } from "./api";
 
 export type Address = {
   id: string;
@@ -12,8 +12,6 @@ export type FullAddress = Address & {
 };
 
 export type DisplayUnit = "BTC" | "sats" | "fiat";
-
-export type FiatCurrency = keyof ExchangeRate;
 
 export type SortField = "balance" | "txCount";
 
