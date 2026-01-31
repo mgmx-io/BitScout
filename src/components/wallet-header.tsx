@@ -4,6 +4,7 @@ import { usePreferencesStore } from "@/stores/preferences";
 import { authenticate, Feedback } from "@/utils";
 import { Skeleton } from "heroui-native";
 import { Text, TouchableOpacity, View } from "react-native";
+import { BalanceChart } from "./balance-chart";
 import Icon from "./icon";
 
 export function WalletHeader() {
@@ -26,8 +27,8 @@ export function WalletHeader() {
   };
 
   return (
-    <View className="gap-2 p-4">
-      <View>
+    <View className="p-4">
+      <View className="mb-2">
         <Text className="text-foreground">Balance</Text>
         <Skeleton isLoading={balance === null} className="h-9 w-48 rounded">
           <Text className="text-foreground text-3xl font-bold">
@@ -57,6 +58,7 @@ export function WalletHeader() {
           />
         </TouchableOpacity>
       </View>
+      <BalanceChart />
     </View>
   );
 }
