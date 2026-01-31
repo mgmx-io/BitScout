@@ -46,7 +46,7 @@ export function Address(props: Props) {
     return (
       <View className="flex-1 items-center justify-center gap-2">
         <View className="flex-row items-center gap-2">
-          <Icon
+          <Icon.Material
             name="error-outline"
             colorClassName="accent-foreground"
             size={20}

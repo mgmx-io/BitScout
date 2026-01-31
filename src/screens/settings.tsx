@@ -36,7 +36,7 @@ export function Settings() {
         </View>
         <View className="flex-row items-center gap-2">
           <Text className="text-muted">{fiatCurrency}</Text>
-          <Icon
+          <Icon.Material
             name="chevron-right"
             size={20}
             colorClassName="accent-foreground"
@@ -53,7 +53,7 @@ export function Settings() {
         </View>
         <View className="flex-row items-center gap-2">
           <Text className="text-muted">{selectedDisplayUnitLabel}</Text>
-          <Icon
+          <Icon.Material
             name="chevron-right"
             size={20}
             colorClassName="accent-foreground"

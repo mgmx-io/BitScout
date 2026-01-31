@@ -5,7 +5,7 @@ export function WalletEmpty() {
   return (
     <View className="flex-1 items-center justify-center gap-3 px-8 py-16">
       <View className="bg-surface-secondary h-16 w-16 items-center justify-center rounded-full">
-        <Icon
+        <Icon.Material
           name="account-balance-wallet"
           size={32}
           colorClassName="accent-foreground"
