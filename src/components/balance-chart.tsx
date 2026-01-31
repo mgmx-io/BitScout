@@ -1,4 +1,5 @@
 import { LinearGradient, vec } from "@shopify/react-native-skia";
+import { useThemeColor } from "heroui-native";
 import { View } from "react-native";
 import { Area, CartesianChart, Line } from "victory-native";
 
@@ -18,11 +19,11 @@ const DATA = [
   { timestamp: 1733011200000, balance: 0.121 }, // Dec 1, 2024
 ];
 
-const PRIMARY_COLOR = "#f97316";
-
 export function BalanceChart() {
+  const primary = useThemeColor("accent");
+
   return (
-    <View className="h-48">
+    <View className="h-32">
       <CartesianChart
         data={DATA}
         xKey="timestamp"
@@ -47,12 +48,12 @@ export function BalanceChart() {
               <LinearGradient
                 start={vec(0, chartBounds.top)}
                 end={vec(0, chartBounds.bottom)}
-                colors={[`${PRIMARY_COLOR}50`, `${PRIMARY_COLOR}00`]}
+                colors={[`${primary}80`, `${primary}00`]}
               />
             </Area>
             <Line
               points={points.balance}
-              color={PRIMARY_COLOR}
+              color={primary}
               strokeWidth={3}
               curveType="catmullRom"
             />
