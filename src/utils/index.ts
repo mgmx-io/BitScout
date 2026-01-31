@@ -26,19 +26,29 @@ export function computeBalance(data: GetAddressResponse | null) {
   );
 }
 
-export async function fetchWalletBalance(addresses: string[]): Promise<number> {
-  const balances = await Promise.all(
-    addresses.map(async (address) => {
-      try {
-        const data = await getAddress(address);
-        return computeBalance(data);
-      } catch (error) {
-        console.error(`Failed to fetch balance for ${address}:`, error);
-        return null;
-      }
-    }),
-  );
-  return balances.reduce((sum: number, balance) => sum + (balance ?? 0), 0);
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export async function fetchWalletBalance(addresses: string[]) {
+  let totalBalance = 0;
+
+  for (const address of addresses) {
+    try {
+      const data = await getAddress(address);
+      const balance = computeBalance(data);
+      totalBalance += balance ?? 0;
+    } catch (error) {
+      console.error(`Failed to fetch balance for ${address}:`, error);
+    }
+
+    // Add delay between requests to avoid rate limiting
+    if (addresses.indexOf(address) < addresses.length - 1) {
+      await sleep(500);
+    }
+  }
+
+  return totalBalance;
 }
 
 export function computeTxCount(data: GetAddressResponse | null) {

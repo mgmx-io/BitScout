@@ -37,7 +37,7 @@ export const useSnapshotStore = create<State>()(
       },
     })),
     {
-      name: "balance",
+      name: "snapshot",
       storage: createJSONStorage(() => mmkvStorage),
     },
   ),

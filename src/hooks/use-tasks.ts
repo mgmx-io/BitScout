@@ -1,8 +1,8 @@
-import { registerBalanceSnapshotTask } from "@/tasks/balance-snapshot-task";
+import { registerSnapshotTask } from "@/tasks/snapshot-task";
 import { useEffect } from "react";
 
 export function useTasks() {
   useEffect(() => {
-    registerBalanceSnapshotTask();
+    registerSnapshotTask();
   }, []);
 }

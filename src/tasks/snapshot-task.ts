@@ -4,7 +4,7 @@ import { fetchWalletBalance } from "@/utils";
 import * as BackgroundTask from "expo-background-task";
 import * as TaskManager from "expo-task-manager";
 
-const TASK_NAME = "balance-snapshot-task";
+const TASK_NAME = "snapshot-task";
 
 // Define the task
 TaskManager.defineTask(TASK_NAME, async () => {
@@ -42,21 +42,19 @@ TaskManager.defineTask(TASK_NAME, async () => {
   }
 });
 
-export async function registerBalanceSnapshotTask() {
+export async function registerSnapshotTask() {
   const status = await BackgroundTask.getStatusAsync();
   if (status !== BackgroundTask.BackgroundTaskStatus.Available) {
     console.warn("Background tasks not available:", status);
     return;
   }
 
-  await BackgroundTask.registerTaskAsync(TASK_NAME, {
-    minimumInterval: 60 * 60 * 24, // 24 hours in seconds
-  });
+  await BackgroundTask.registerTaskAsync(TASK_NAME);
 
   console.log("Balance snapshot task registered");
 }
 
-export async function unregisterBalanceSnapshotTask() {
+export async function unregisterSnapshotTask() {
   await BackgroundTask.unregisterTaskAsync(TASK_NAME);
   console.log("Balance snapshot task unregistered");
 }
