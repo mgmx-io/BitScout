@@ -33,6 +33,9 @@
       "eas": {
         "projectId": "edc2236c-2010-4009-ad80-bde0b119d077"
       }
-    }
+    },
+    "plugins": [
+      "expo-background-task"
+    ]
   }
 }
