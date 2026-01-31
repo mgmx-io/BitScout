@@ -96,7 +96,7 @@ export function WalletHeader() {
           </View>
         )}
       </View>
-      <BalanceChart state={state} isActive={isActive} />
+      {visible && <BalanceChart state={state} isActive={isActive} />}
     </View>
   );
 }
