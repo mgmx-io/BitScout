@@ -1,3 +1,4 @@
+import { getHistoricalPrice } from "@/api/endpoints";
 import { useAppStore } from "@/stores";
 import { useSnapshotStore } from "@/stores/snapshot";
 import { fetchWalletBalance } from "@/utils";
@@ -30,7 +31,17 @@ TaskManager.defineTask(TASK_NAME, async () => {
 
     // Fetch balance for selected wallet
     const balance = await fetchWalletBalance(selectedWalletAddresses);
-    useSnapshotStore.getState().addSnapshot(balance);
+
+    // Fetch historical price data
+    const timestamp = Math.floor(Date.now() / 1000);
+    const { prices, exchangeRates } = await getHistoricalPrice({ timestamp });
+
+    // Save snapshot with price data
+    useSnapshotStore.getState().addSnapshot({
+      balance,
+      prices: prices[0],
+      rates: exchangeRates,
+    });
 
     console.log(
       `[BackgroundTask] Successfully saved snapshot for wallet ${selectedId}: ${balance} sats`,
