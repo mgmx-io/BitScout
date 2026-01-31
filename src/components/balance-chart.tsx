@@ -1,7 +1,8 @@
 import { LinearGradient, vec } from "@shopify/react-native-skia";
 import { useThemeColor } from "heroui-native";
 import { View } from "react-native";
-import { Area, CartesianChart, Line } from "victory-native";
+import { Area, CartesianChart, Line, useChartPressState } from "victory-native";
+import { ToolTip } from "./tooltip";
 
 // Hardcoded data for balance over time
 const DATA = [
@@ -21,6 +22,10 @@ const DATA = [
 
 export function BalanceChart() {
   const primary = useThemeColor("accent");
+  const { state, isActive } = useChartPressState({
+    x: 0,
+    y: { balance: 0 },
+  });
 
   return (
     <View className="h-32">
@@ -28,6 +33,7 @@ export function BalanceChart() {
         data={DATA}
         xKey="timestamp"
         yKeys={["balance"]}
+        chartPressState={state}
         axisOptions={{
           formatXLabel: () => "",
           formatYLabel: () => "",
@@ -57,6 +63,13 @@ export function BalanceChart() {
               strokeWidth={3}
               curveType="catmullRom"
             />
+            {isActive && (
+              <ToolTip
+                x={state.x.position}
+                y={state.y.balance.position}
+                color={primary}
+              />
+            )}
           </>
         )}
       </CartesianChart>
