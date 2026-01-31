@@ -11,17 +11,17 @@ type State = {
   sortField: SortField;
   sortOrder: SortOrder;
   cycleUnit: () => void;
-  setDisplayUnit: (unit: DisplayUnit) => void;
-  setFiatCurrency: (currency: FiatCurrency) => void;
+  setDisplayUnit: (displayUnit: DisplayUnit) => void;
+  setFiatCurrency: (fiatCurrency: FiatCurrency) => void;
   toggleVisibility: () => void;
-  selectSortField: (field: SortField) => void;
+  selectSortField: (sortField: SortField) => void;
   toggleSortOrder: () => void;
 };
 
 export const usePreferencesStore = create<State>()(
   persist(
     (set, get) => ({
-      displayUnit: UNITS[0],
+      displayUnit: "BTC",
       fiatCurrency: "USD",
       visible: true,
       sortField: "balance",
@@ -34,26 +34,24 @@ export const usePreferencesStore = create<State>()(
         set({ displayUnit: next });
       },
 
-      setDisplayUnit: (unit) => {
-        set({ displayUnit: unit });
+      setDisplayUnit: (displayUnit) => {
+        set({ displayUnit });
       },
 
-      setFiatCurrency: (currency) => {
-        set({ fiatCurrency: currency });
+      setFiatCurrency: (fiatCurrency) => {
+        set({ fiatCurrency });
       },
 
       toggleVisibility: () => {
         set({ visible: !get().visible });
       },
 
-      selectSortField: (field) => {
-        set({ sortField: field, sortOrder: "desc" });
+      selectSortField: (sortField) => {
+        set({ sortField, sortOrder: "desc" });
       },
 
       toggleSortOrder: () => {
-        set((state) => ({
-          sortOrder: state.sortOrder === "asc" ? "desc" : "asc",
-        }));
+        set({ sortOrder: get().sortOrder === "asc" ? "desc" : "asc" });
       },
     }),
     {
