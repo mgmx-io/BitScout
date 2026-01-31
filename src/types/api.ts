@@ -26,8 +26,10 @@ export type GetHistoricalPriceResponse = {
   exchangeRates: ExchangeRates;
 };
 
+export type FiatCurrency = keyof PriceData;
+
 export type GetHistoricalPriceRequest = {
-  currency?: keyof PriceData;
+  currency?: FiatCurrency;
   timestamp?: number;
 };
 

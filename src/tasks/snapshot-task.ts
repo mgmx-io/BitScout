@@ -34,13 +34,12 @@ TaskManager.defineTask(TASK_NAME, async () => {
 
     // Fetch historical price data
     const timestamp = Math.floor(Date.now() / 1000);
-    const { prices, exchangeRates } = await getHistoricalPrice({ timestamp });
+    const { prices } = await getHistoricalPrice({ timestamp });
 
     // Save snapshot with price data
     useSnapshotStore.getState().addSnapshot({
       balance,
       prices: prices[0],
-      rates: exchangeRates,
     });
 
     console.log(

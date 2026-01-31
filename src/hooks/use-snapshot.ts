@@ -26,11 +26,10 @@ export function useSnapshot() {
       mutate(
         { timestamp },
         {
-          onSuccess: ({ prices, exchangeRates }) => {
+          onSuccess: ({ prices }) => {
             addSnapshot({
               balance,
               prices: prices[0],
-              rates: exchangeRates,
             });
             prevBalance.current = balance;
           },

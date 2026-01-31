@@ -1,41 +1,63 @@
+import { useSnapshotStore } from "@/stores/snapshot";
+import { FiatCurrency } from "@/types/api";
+import { DisplayUnit } from "@/types/misc";
+import { satsToBtc, satsToFiat } from "@/utils";
 import { LinearGradient, vec } from "@shopify/react-native-skia";
+import { Big } from "big.js";
 import { useThemeColor } from "heroui-native";
 import { View } from "react-native";
 import type { ChartPressState } from "victory-native";
 import { Area, CartesianChart, Line } from "victory-native";
 import { ToolTip } from "./tooltip";
 
-// Hardcoded data for balance over time
-const DATA = [
-  { timestamp: 1704067200000, balance: 0.045 }, // Jan 1, 2024
-  { timestamp: 1706745600000, balance: 0.052 }, // Feb 1, 2024
-  { timestamp: 1709251200000, balance: 0.048 }, // Mar 1, 2024
-  { timestamp: 1711929600000, balance: 0.065 }, // Apr 1, 2024
-  { timestamp: 1714521600000, balance: 0.071 }, // May 1, 2024
-  { timestamp: 1717200000000, balance: 0.069 }, // Jun 1, 2024
-  { timestamp: 1719792000000, balance: 0.082 }, // Jul 1, 2024
-  { timestamp: 1722470400000, balance: 0.095 }, // Aug 1, 2024
-  { timestamp: 1725148800000, balance: 0.089 }, // Sep 1, 2024
-  { timestamp: 1727740800000, balance: 0.103 }, // Oct 1, 2024
-  { timestamp: 1730419200000, balance: 0.115 }, // Nov 1, 2024
-  { timestamp: 1733011200000, balance: 0.121 }, // Dec 1, 2024
-];
-
 type Props = {
-  state: ChartPressState<{ x: number; y: { balance: number } }>;
+  state: ChartPressState<{ x: number; y: { value: number } }>;
   isActive: boolean;
+  displayUnit: DisplayUnit;
+  fiatCurrency: FiatCurrency;
 };
 
-export function BalanceChart({ state, isActive }: Props) {
+const OFFSET = 16;
+
+export function BalanceChart({
+  state,
+  isActive,
+  displayUnit,
+  fiatCurrency,
+}: Props) {
   const primary = useThemeColor("accent");
+  const { getHistory } = useSnapshotStore();
+  const snapshots = getHistory();
+
+  const data = snapshots.map(({ balance, prices, timestamp }) => {
+    const sats = new Big(balance || 0);
+    const price = new Big(prices?.[fiatCurrency] || 0);
+    let value: number;
+
+    if (displayUnit === "BTC") {
+      value = satsToBtc(sats).toNumber();
+    } else if (displayUnit === "fiat") {
+      value = satsToFiat(sats, price).toNumber();
+    } else {
+      value = sats.toNumber();
+    }
+
+    return { timestamp, value };
+  });
 
   return (
     <View className="h-32">
       <CartesianChart
-        data={DATA}
+        data={data}
         xKey="timestamp"
-        yKeys={["balance"]}
+        yKeys={["value"]}
         chartPressState={state}
+        domainPadding={{
+          bottom: OFFSET,
+          top: OFFSET,
+          left: OFFSET,
+          right: OFFSET,
+        }}
         axisOptions={{
           formatXLabel: () => "",
           formatYLabel: () => "",
@@ -49,7 +71,7 @@ export function BalanceChart({ state, isActive }: Props) {
         {({ points, chartBounds }) => (
           <>
             <Area
-              points={points.balance}
+              points={points.value}
               y0={chartBounds.bottom}
               curveType="catmullRom"
             >
@@ -60,7 +82,7 @@ export function BalanceChart({ state, isActive }: Props) {
               />
             </Area>
             <Line
-              points={points.balance}
+              points={points.value}
               color={primary}
               strokeWidth={3}
               curveType="catmullRom"
@@ -68,7 +90,7 @@ export function BalanceChart({ state, isActive }: Props) {
             {isActive && (
               <ToolTip
                 x={state.x.position}
-                y={state.y.balance.position}
+                y={state.y.value.position}
                 color={primary}
               />
             )}

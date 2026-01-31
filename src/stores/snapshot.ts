@@ -1,6 +1,6 @@
 import { mmkvStorage } from "@/config/mmkv";
 import { useAppStore } from "@/stores";
-import type { ExchangeRates, PriceData } from "@/types/api";
+import type { PriceData } from "@/types/api";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
@@ -8,7 +8,6 @@ import { immer } from "zustand/middleware/immer";
 type Snapshot = {
   balance: number;
   prices: PriceData;
-  rates: ExchangeRates;
   timestamp: number;
   walletId: string;
 };
@@ -24,12 +23,12 @@ export const useSnapshotStore = create<State>()(
     immer((set, get) => ({
       snapshots: [],
 
-      addSnapshot: ({ balance, prices, rates }) => {
+      addSnapshot: ({ balance, prices }) => {
         const walletId = useAppStore.getState().selectedId;
         const timestamp = Date.now();
 
         set((state) => {
-          state.snapshots.push({ timestamp, balance, walletId, prices, rates });
+          state.snapshots.push({ timestamp, balance, walletId, prices });
           state.snapshots.sort((a, b) => a.timestamp - b.timestamp);
         });
       },
