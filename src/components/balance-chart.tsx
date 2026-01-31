@@ -2,12 +2,17 @@ import { useSnapshotStore } from "@/stores/snapshot";
 import { FiatCurrency } from "@/types/api";
 import { DisplayUnit } from "@/types/misc";
 import { satsToBtc, satsToFiat } from "@/utils";
-import { LinearGradient, vec } from "@shopify/react-native-skia";
+import { LinearGradient, Path, vec } from "@shopify/react-native-skia";
 import { Big } from "big.js";
 import { useThemeColor } from "heroui-native";
 import { View } from "react-native";
-import type { ChartPressState } from "victory-native";
-import { Area, CartesianChart, Line } from "victory-native";
+import type { ChartPressState, PointsArray } from "victory-native";
+import {
+  CartesianChart,
+  useAnimatedPath,
+  useAreaPath,
+  useLinePath,
+} from "victory-native";
 import { ToolTip } from "./tooltip";
 
 type Props = {
@@ -18,6 +23,42 @@ type Props = {
 };
 
 const OFFSET = 16;
+
+function AnimatedArea({
+  points,
+  y0,
+  color,
+}: {
+  points: PointsArray;
+  y0: number;
+  color: string;
+}) {
+  const { path } = useAreaPath(points, y0, { curveType: "catmullRom" });
+  const animPath = useAnimatedPath(path);
+
+  return (
+    <Path path={animPath} style="fill">
+      <LinearGradient
+        start={vec(0, 0)}
+        end={vec(0, y0)}
+        colors={[`${color}80`, `${color}00`]}
+      />
+    </Path>
+  );
+}
+
+function AnimatedLine({
+  points,
+  color,
+}: {
+  points: PointsArray;
+  color: string;
+}) {
+  const { path } = useLinePath(points, { curveType: "catmullRom" });
+  const animPath = useAnimatedPath(path);
+
+  return <Path path={animPath} style="stroke" color={color} strokeWidth={3} />;
+}
 
 export function BalanceChart({
   state,
@@ -70,23 +111,12 @@ export function BalanceChart({
       >
         {({ points, chartBounds }) => (
           <>
-            <Area
+            <AnimatedArea
               points={points.value}
               y0={chartBounds.bottom}
-              curveType="catmullRom"
-            >
-              <LinearGradient
-                start={vec(0, chartBounds.top)}
-                end={vec(0, chartBounds.bottom)}
-                colors={[`${primary}80`, `${primary}00`]}
-              />
-            </Area>
-            <Line
-              points={points.value}
               color={primary}
-              strokeWidth={3}
-              curveType="catmullRom"
             />
+            <AnimatedLine points={points.value} color={primary} />
             {isActive && (
               <ToolTip
                 x={state.x.position}
