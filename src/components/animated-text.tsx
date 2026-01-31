@@ -23,7 +23,7 @@ export function AnimatedText({ text, ...rest }: Props) {
   return (
     <AnimText
       {...rest}
-      value={text.value}
+      defaultValue={text.value}
       animatedProps={animatedProps}
       editable={false}
     />
