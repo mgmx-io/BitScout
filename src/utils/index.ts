@@ -1,3 +1,4 @@
+import { getAddress } from "@/api/endpoints";
 import { mmkvInstance } from "@/config/mmkv";
 import { GetAddressResponse, Tx, TxOutput, TxVin } from "@/types/api";
 import {
@@ -23,6 +24,21 @@ export function computeBalance(data: GetAddressResponse | null) {
     data.chain_stats.spent_txo_sum +
     (data.mempool_stats.funded_txo_sum - data.mempool_stats.spent_txo_sum)
   );
+}
+
+export async function fetchWalletBalance(addresses: string[]): Promise<number> {
+  const balances = await Promise.all(
+    addresses.map(async (address) => {
+      try {
+        const data = await getAddress(address);
+        return computeBalance(data);
+      } catch (error) {
+        console.error(`Failed to fetch balance for ${address}:`, error);
+        return null;
+      }
+    }),
+  );
+  return balances.reduce((sum: number, balance) => sum + (balance ?? 0), 0);
 }
 
 export function computeTxCount(data: GetAddressResponse | null) {
