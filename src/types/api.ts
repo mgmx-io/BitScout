@@ -1,8 +1,4 @@
-export type GetPricesResponse = ExchangeRate & {
-  time: number;
-};
-
-export type ExchangeRate = {
+export type PriceData = {
   USD: number;
   EUR: number;
   GBP: number;
@@ -12,13 +8,26 @@ export type ExchangeRate = {
   JPY: number;
 };
 
+export type GetPricesResponse = PriceData & {
+  time: number;
+};
+
+export type ExchangeRates = {
+  USDEUR?: number;
+  USDGBP?: number;
+  USDCAD?: number;
+  USDCHF?: number;
+  USDAUD?: number;
+  USDJPY?: number;
+};
+
 export type GetHistoricalPriceResponse = {
   prices: GetPricesResponse[];
-  exchangeRates: ExchangeRate;
+  exchangeRates: ExchangeRates;
 };
 
 export type GetHistoricalPriceRequest = {
-  currency?: keyof ExchangeRate;
+  currency?: keyof PriceData;
   timestamp?: number;
 };
 
