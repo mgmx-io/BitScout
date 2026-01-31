@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
+import { SelectableItem } from "./selectable-item";
 
 export function WalletSwitch() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,24 +50,14 @@ export function WalletSwitch() {
             </Text>
             <View className="gap-2">
               {wallets.map((wallet) => (
-                <TouchableOpacity
+                <SelectableItem
                   key={wallet.id}
-                  className={`flex-row items-center justify-between rounded-full px-4 py-3 ${
-                    wallet.selected ? "bg-surface-secondary" : "bg-surface"
-                  }`}
+                  isSelected={wallet.selected}
                   onPress={() => handleSelect(wallet.id)}
                 >
-                  <Text className="text-foreground font-bold">
-                    {wallet.name}
-                  </Text>
-                  {wallet.selected && (
-                    <Icon
-                      name="check"
-                      size={20}
-                      colorClassName="accent-foreground"
-                    />
-                  )}
-                </TouchableOpacity>
+                  <SelectableItem.Label>{wallet.name}</SelectableItem.Label>
+                  <SelectableItem.Indicator isSelected={wallet.selected} />
+                </SelectableItem>
               ))}
             </View>
 

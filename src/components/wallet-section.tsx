@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
+import { SelectableItem } from "./selectable-item";
 
 const sortOptions: {
   id: SortField;
@@ -69,24 +70,17 @@ export function WalletSection() {
               {sortOptions.map((option) => {
                 const isSelected = sortField === option.id;
                 return (
-                  <TouchableOpacity
+                  <SelectableItem
                     key={option.id}
-                    className={`flex-row items-center justify-between rounded-full px-4 py-3 ${
-                      isSelected ? "bg-surface-secondary" : "bg-surface"
-                    }`}
+                    isSelected={isSelected}
                     onPress={() => handleSelect(option.id)}
                   >
-                    <Text className="text-foreground font-bold">
-                      {option.label}
-                    </Text>
-                    {isSelected && (
-                      <Icon
-                        name={sortOrder === "asc" ? "north" : "south"}
-                        size={20}
-                        colorClassName="accent-foreground"
-                      />
-                    )}
-                  </TouchableOpacity>
+                    <SelectableItem.Label>{option.label}</SelectableItem.Label>
+                    <SelectableItem.Indicator
+                      isSelected={isSelected}
+                      icon={sortOrder === "asc" ? "north" : "south"}
+                    />
+                  </SelectableItem>
                 );
               })}
             </View>

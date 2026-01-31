@@ -1,9 +1,9 @@
 import { usePreferencesStore } from "@/stores/preferences";
 import { DisplayUnit } from "@/types/misc";
 import { Feedback, UNITS } from "@/utils";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
-import Icon from "./icon";
+import { SelectableItem } from "./selectable-item";
 
 type Props = {
   isOpen: boolean;
@@ -31,24 +31,16 @@ export function DisplayUnitPickerSheet({ isOpen, onOpenChange }: Props) {
               {UNITS.map((option) => {
                 const isSelected = option === displayUnit;
                 return (
-                  <TouchableOpacity
+                  <SelectableItem
                     key={option}
-                    className={`flex-row items-center justify-between rounded-full px-4 py-3 ${
-                      isSelected ? "bg-surface-secondary" : "bg-surface"
-                    }`}
+                    isSelected={isSelected}
                     onPress={() => handleSelect(option)}
                   >
-                    <Text className="text-foreground font-bold">
+                    <SelectableItem.Label>
                       {option === "fiat" ? fiatCurrency : option}
-                    </Text>
-                    {isSelected ? (
-                      <Icon
-                        name="check"
-                        size={20}
-                        colorClassName="accent-foreground"
-                      />
-                    ) : null}
-                  </TouchableOpacity>
+                    </SelectableItem.Label>
+                    <SelectableItem.Indicator isSelected={isSelected} />
+                  </SelectableItem>
                 );
               })}
             </View>

@@ -1,9 +1,9 @@
 import { usePreferencesStore } from "@/stores/preferences";
 import { FiatCurrency } from "@/types/misc";
 import { Feedback } from "@/utils";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
-import Icon from "./icon";
+import { SelectableItem } from "./selectable-item";
 
 type Option = {
   id: FiatCurrency;
@@ -46,24 +46,14 @@ export function CurrencyPickerSheet({ isOpen, onOpenChange }: Props) {
               {currencyOptions.map((option) => {
                 const isSelected = option.id === fiatCurrency;
                 return (
-                  <TouchableOpacity
+                  <SelectableItem
                     key={option.id}
-                    className={`flex-row items-center justify-between rounded-full px-4 py-3 ${
-                      isSelected ? "bg-surface-secondary" : "bg-surface"
-                    }`}
+                    isSelected={isSelected}
                     onPress={() => handleSelect(option.id)}
                   >
-                    <Text className="text-foreground font-bold">
-                      {option.label}
-                    </Text>
-                    {isSelected ? (
-                      <Icon
-                        name="check"
-                        size={20}
-                        colorClassName="accent-foreground"
-                      />
-                    ) : null}
-                  </TouchableOpacity>
+                    <SelectableItem.Label>{option.label}</SelectableItem.Label>
+                    <SelectableItem.Indicator isSelected={isSelected} />
+                  </SelectableItem>
                 );
               })}
             </View>
