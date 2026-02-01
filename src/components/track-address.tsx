@@ -92,11 +92,11 @@ export function TrackAddress() {
             <Text className="text-foreground px-4 text-lg">
               Enter a public Bitcoin address
             </Text>
-            <View className="bg-surface-secondary h-12 flex-row items-center rounded-full pr-2 pl-4">
+            <View className="bg-surface-secondary flex-row items-center rounded-full pr-2 pl-4">
               <BottomSheetTextInput
                 value={value}
                 onChangeText={setValue}
-                className="text-field-foreground flex-1"
+                className="text-field-foreground h-12 flex-1 pt-0 pb-0 text-base"
                 placeholder={compactAddress(
                   "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
                 )}
