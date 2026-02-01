@@ -53,25 +53,29 @@ export function WalletHeader() {
         </View>
 
         <View className="flex-row gap-2">
-          <TouchableOpacity
-            className="bg-surface h-8 w-12 items-center justify-center rounded shadow-xs"
-            onPress={handleUnitPress}
-          >
-            <Text className="text-foreground font-bold">
-              {displayUnit === "fiat" ? fiatCurrency : displayUnit}
-            </Text>
-          </TouchableOpacity>
+          {!isActive && (
+            <TouchableOpacity
+              className="bg-surface h-8 w-12 items-center justify-center rounded shadow-xs"
+              onPress={handleUnitPress}
+            >
+              <Text className="text-foreground font-bold">
+                {displayUnit === "fiat" ? fiatCurrency : displayUnit}
+              </Text>
+            </TouchableOpacity>
+          )}
 
-          <TouchableOpacity
-            className="bg-surface h-8 w-12 items-center justify-center rounded shadow-xs"
-            onPress={handleVisibilityPress}
-          >
-            <Icon.Material
-              name={visible ? "visibility-off" : "visibility"}
-              size={20}
-              colorClassName="accent-foreground"
-            />
-          </TouchableOpacity>
+          {!isActive && (
+            <TouchableOpacity
+              className="bg-surface h-8 w-12 items-center justify-center rounded shadow-xs"
+              onPress={handleVisibilityPress}
+            >
+              <Icon.Material
+                name={visible ? "visibility-off" : "visibility"}
+                size={20}
+                colorClassName="accent-foreground"
+              />
+            </TouchableOpacity>
+          )}
 
           {isActive && (
             <View className="bg-surface h-8 items-center justify-center rounded shadow-xs">
