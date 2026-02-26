@@ -19,7 +19,7 @@
     "@tanstack/react-query-persist-client": "^5.90.16",
     "axios": "^1.13.2",
     "big.js": "^7.0.1",
-    "expo": "~54.0.31",
+    "expo": "~54.0.33",
     "expo-background-task": "~1.0.10",
     "expo-blur": "~15.0.8",
     "expo-clipboard": "~8.0.8",
