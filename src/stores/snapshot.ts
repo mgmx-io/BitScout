@@ -12,6 +12,16 @@ type Snapshot = {
   walletId: string;
 };
 
+const hasValidPrices = (prices?: PriceData | null) => {
+  if (!prices) {
+    return false;
+  }
+
+  return Object.values(prices).every(
+    (price) => typeof price === "number" && Number.isFinite(price) && price > 0,
+  );
+};
+
 type State = {
   snapshots: Snapshot[];
   addSnapshot: (snapshot: Omit<Snapshot, "timestamp" | "walletId">) => void;
@@ -35,7 +45,9 @@ export const useSnapshotStore = create<State>()(
 
       getHistory: () => {
         const { selectedId } = useAppStore.getState();
-        return get().snapshots.filter((s) => s.walletId === selectedId);
+        return get().snapshots.filter(
+          (s) => s.walletId === selectedId && hasValidPrices(s.prices),
+        );
       },
     })),
     {

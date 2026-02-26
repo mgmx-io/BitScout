@@ -33,7 +33,7 @@ function AnimatedArea({
   y0: number;
   color: string;
 }) {
-  const { path } = useAreaPath(points, y0, { curveType: "catmullRom" });
+  const { path } = useAreaPath(points, y0);
   const animPath = useAnimatedPath(path);
 
   return (
@@ -54,7 +54,7 @@ function AnimatedLine({
   points: PointsArray;
   color: string;
 }) {
-  const { path } = useLinePath(points, { curveType: "catmullRom" });
+  const { path } = useLinePath(points);
   const animPath = useAnimatedPath(path);
 
   return <Path path={animPath} style="stroke" color={color} strokeWidth={3} />;
