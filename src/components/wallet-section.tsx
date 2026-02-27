@@ -2,7 +2,7 @@ import { useAddresses } from "@/hooks/use-addresses";
 import { usePreferencesStore } from "@/stores/preferences";
 import { SortField } from "@/types/misc";
 import { Feedback } from "@/utils";
-import { Chip } from "heroui-native";
+import { Chip, Separator } from "heroui-native";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
@@ -66,10 +66,8 @@ export function WalletSection() {
       <BottomSheet.Portal>
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
-            <Text className="text-foreground px-4 text-lg font-bold">
-              Sort by
-            </Text>
-
+            <Text className="text-foreground px-4 font-bold">Sort by</Text>
+            <Separator />
             <View className="gap-2">
               {sortOptions.map((option) => {
                 const isSelected = sortField === option.id;

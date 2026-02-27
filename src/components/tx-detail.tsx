@@ -86,34 +86,36 @@ export function TxDetail(props: Props) {
               <Text className="text-foreground text-xl font-bold">
                 Transaction detail
               </Text>
-              <Text className="text-muted text-xs">{txId}</Text>
+              <Text className="text-muted text-xs font-normal">{txId}</Text>
             </View>
 
             <View className="bg-surface-secondary gap-2 rounded p-4">
               <View className="flex-row items-center justify-between">
-                <Text className="text-muted text-xs">Status</Text>
-                <Text className="text-foreground text-sm font-semibold">
+                <Text className="text-muted text-xs font-normal">Status</Text>
+                <Text className="text-foreground text-sm font-bold">
                   {statusLabel}
                 </Text>
               </View>
               <Separator />
               <View className="flex-row items-center justify-between">
-                <Text className="text-muted text-xs">Confirmed at</Text>
-                <Text className="text-foreground text-sm font-semibold">
+                <Text className="text-muted text-xs font-normal">
+                  Confirmed at
+                </Text>
+                <Text className="text-foreground text-sm font-bold">
                   {blockTimeLabel}
                 </Text>
               </View>
               <Separator />
               <View className="flex-row items-center justify-between">
-                <Text className="text-muted text-xs">Fee</Text>
-                <Text className="text-foreground text-sm font-semibold">
+                <Text className="text-muted text-xs font-normal">Fee</Text>
+                <Text className="text-foreground text-sm font-bold">
                   {feeLabel}
                 </Text>
               </View>
               <Separator />
               <View className="flex-row items-center justify-between">
-                <Text className="text-muted text-xs">Size</Text>
-                <Text className="text-foreground text-sm font-semibold">
+                <Text className="text-muted text-xs font-normal">Size</Text>
+                <Text className="text-foreground text-sm font-bold">
                   {sizeLabel}
                 </Text>
               </View>

@@ -38,15 +38,15 @@ export function WalletHeader() {
     <Fragment>
       <View className="p-4">
         <View className="mb-2">
-          <Text className="text-foreground">Balance</Text>
+          <Text className="text-foreground font-normal">Balance</Text>
           <Skeleton isLoading={balance === null} className="h-9 w-48 rounded">
             {isActive ? (
               <AnimatedText
                 text={animatedBalance}
-                className="text-foreground text-3xl font-bold"
+                className="text-foreground text-2xl font-bold"
               />
             ) : (
-              <Text className="text-foreground text-3xl font-bold">
+              <Text className="text-foreground text-2xl font-bold">
                 {displayValue}
               </Text>
             )}

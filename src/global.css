@@ -2,3 +2,10 @@
 @import "uniwind";
 @import "heroui-native/styles";
 @source "../node_modules/heroui-native/lib";
+
+@theme {
+  --font-normal: "GeistMono-Regular";
+  --font-medium: "GeistMono-Medium";
+  --font-semibold: "GeistMono-SemiBold";
+  --font-bold: "GeistMono-Bold";
+}

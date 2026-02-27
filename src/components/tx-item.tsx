@@ -31,8 +31,10 @@ export function TxItem(props: Props) {
         colorClassName="accent-foreground"
       />
       <View className="flex-1">
-        <Text className="text-foreground">{income ? "Received" : "Sent"}</Text>
-        <Text className="text-muted text-xs">
+        <Text className="text-foreground font-normal">
+          {income ? "Received" : "Sent"}
+        </Text>
+        <Text className="text-muted text-xs font-normal">
           {formatDate(status.block_time)}
         </Text>
       </View>

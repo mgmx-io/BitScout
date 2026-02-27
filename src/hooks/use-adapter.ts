@@ -1,4 +1,3 @@
-import { DefaultTheme } from "@react-navigation/native";
 import { useThemeColor } from "heroui-native";
 import { useUniwind } from "uniwind";
 
@@ -20,6 +19,23 @@ export function useAdapter(): ReactNavigation.Theme {
       notification: primary,
     },
     dark: theme === "dark",
-    fonts: DefaultTheme.fonts,
+    fonts: {
+      regular: {
+        fontFamily: "GeistMono-Regular",
+        fontWeight: "400",
+      },
+      medium: {
+        fontFamily: "GeistMono-Medium",
+        fontWeight: "500",
+      },
+      bold: {
+        fontFamily: "GeistMono-Bold",
+        fontWeight: "700",
+      },
+      heavy: {
+        fontFamily: "GeistMono-Bold",
+        fontWeight: "700",
+      },
+    },
   };
 }

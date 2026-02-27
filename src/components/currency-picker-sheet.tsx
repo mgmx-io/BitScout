@@ -1,6 +1,7 @@
 import { usePreferencesStore } from "@/stores/preferences";
 import { FiatCurrency } from "@/types/api";
 import { Feedback } from "@/utils";
+import { Separator } from "heroui-native";
 import { Text, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
 import { SelectableItem } from "./selectable-item";
@@ -39,9 +40,10 @@ export function CurrencyPickerSheet({ isOpen, onOpenChange }: Props) {
       <BottomSheet.Portal>
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
-            <Text className="text-foreground px-4 text-lg font-bold">
+            <Text className="text-foreground px-4 font-bold">
               Select currency
             </Text>
+            <Separator />
             <View className="gap-2">
               {currencyOptions.map((option) => {
                 const isSelected = option.id === fiatCurrency;

@@ -3,7 +3,7 @@ import { useAppStore } from "@/stores";
 import { compactAddress, Feedback, promptInAppReview } from "@/utils";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import * as Clipboard from "expo-clipboard";
-import { Button, Spinner, useToast } from "heroui-native";
+import { Button, Separator, Spinner, useToast } from "heroui-native";
 import { useMemo, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
@@ -89,14 +89,15 @@ export function TrackAddress() {
       <BottomSheet.Portal>
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
-            <Text className="text-foreground px-4 text-lg">
+            <Text className="text-foreground px-4 font-bold">
               Enter a public Bitcoin address
             </Text>
+            <Separator />
             <View className="bg-surface-secondary h-12 flex-row items-center gap-2 rounded-full pr-2 pl-4">
               <BottomSheetTextInput
                 value={value}
                 onChangeText={setValue}
-                className="text-field-foreground flex-1 pt-0 pb-0 text-base"
+                className="text-field-foreground flex-1 pt-0 pb-0 text-base font-normal"
                 placeholder={compactAddress(
                   "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
                 )}

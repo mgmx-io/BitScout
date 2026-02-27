@@ -14,7 +14,7 @@ export function WalletEmpty() {
       <Text className="text-foreground text-lg font-bold">
         No addresses yet
       </Text>
-      <Text className="text-muted text-center">
+      <Text className="text-muted text-center font-normal">
         Get started by tracking your first Bitcoin address
       </Text>
     </View>

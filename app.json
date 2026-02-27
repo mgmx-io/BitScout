@@ -32,6 +32,19 @@
         "projectId": "edc2236c-2010-4009-ad80-bde0b119d077"
       }
     },
-    "plugins": ["expo-background-task"]
+    "plugins": [
+      "expo-background-task",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/GeistMono-Regular.ttf",
+            "./assets/fonts/GeistMono-Medium.ttf",
+            "./assets/fonts/GeistMono-SemiBold.ttf",
+            "./assets/fonts/GeistMono-Bold.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }

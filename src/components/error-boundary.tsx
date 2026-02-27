@@ -9,7 +9,7 @@ function Fallback() {
   return (
     <View className="m-safe bg-background flex-1 p-4">
       <Text className="text-foreground text-2xl font-bold">Congrats!</Text>
-      <Text className="text-foreground">
+      <Text className="text-foreground font-normal">
         You managed to break the app. Please restart it.
       </Text>
     </View>

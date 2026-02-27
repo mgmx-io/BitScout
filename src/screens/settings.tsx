@@ -35,7 +35,7 @@ export function Settings() {
           <Text className="text-foreground font-bold">Fiat currency</Text>
         </View>
         <View className="flex-row items-center gap-2">
-          <Text className="text-muted">{fiatCurrency}</Text>
+          <Text className="text-muted font-normal">{fiatCurrency}</Text>
           <Icon.Material
             name="chevron-right"
             size={20}
@@ -52,7 +52,9 @@ export function Settings() {
           <Text className="text-foreground font-bold">Display unit</Text>
         </View>
         <View className="flex-row items-center gap-2">
-          <Text className="text-muted">{selectedDisplayUnitLabel}</Text>
+          <Text className="text-muted font-normal">
+            {selectedDisplayUnitLabel}
+          </Text>
           <Icon.Material
             name="chevron-right"
             size={20}

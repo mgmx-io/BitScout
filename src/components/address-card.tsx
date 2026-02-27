@@ -35,7 +35,9 @@ export function AddressCard(props: Props) {
         size={20}
         colorClassName="accent-foreground"
       />
-      <Text className="text-foreground flex-1">{compactAddress(address)}</Text>
+      <Text className="text-foreground flex-1 font-normal">
+        {compactAddress(address)}
+      </Text>
       <View className="items-end gap-1">
         <Skeleton
           isLoading={displayValue === null}
@@ -44,7 +46,7 @@ export function AddressCard(props: Props) {
           <Text className="text-foreground font-bold">{displayValue}</Text>
         </Skeleton>
         <Skeleton isLoading={txCount === null} className="h-4 w-12 rounded">
-          <Text className="text-muted text-sm">{txCount} tx</Text>
+          <Text className="text-muted text-sm font-normal">{txCount} tx</Text>
         </Skeleton>
       </View>
     </TouchableOpacity>

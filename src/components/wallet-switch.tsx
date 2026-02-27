@@ -1,7 +1,7 @@
 import { useWallets } from "@/hooks/use-wallets";
 import { useAppStore } from "@/stores";
 import { Feedback } from "@/utils";
-import { Button } from "heroui-native";
+import { Button, Separator } from "heroui-native";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
@@ -45,9 +45,10 @@ export function WalletSwitch() {
       <BottomSheet.Portal>
         <BottomSheet.Content backgroundClassName="bg-surface">
           <View className="gap-4">
-            <Text className="text-foreground px-4 text-lg">
+            <Text className="text-foreground px-4 font-bold">
               Select a wallet
             </Text>
+            <Separator />
             <View className="gap-2">
               {wallets.map((wallet) => (
                 <SelectableItem
