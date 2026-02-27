@@ -1,4 +1,5 @@
 import { useBalance } from "@/hooks/use-balance";
+import { useChartHaptics } from "@/hooks/use-chart-haptics";
 import { useChartValues } from "@/hooks/use-chart-values";
 import { useDisplayValue } from "@/hooks/use-display-value";
 import { usePreferencesStore } from "@/stores/preferences";
@@ -17,8 +18,8 @@ export function WalletHeader() {
   const { state, isActive } = useChartPressState({ x: 0, y: { value: 0 } });
   const { displayUnit, fiatCurrency, visible, cycleUnit, toggleVisibility } =
     usePreferencesStore();
-
   const { animatedBalance, animatedDate } = useChartValues(state);
+  useChartHaptics(state, isActive);
 
   const handleUnitPress = () => {
     Feedback.selection();
