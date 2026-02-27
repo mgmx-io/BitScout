@@ -7,7 +7,7 @@ import { Tx } from "@/types/api";
 import { groupTxs } from "@/utils";
 import { StaticScreenProps } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Button, Divider, ScrollShadow } from "heroui-native";
+import { Button, ScrollShadow, Separator } from "heroui-native";
 import { useState } from "react";
 import { ActivityIndicator, SectionList, Text, View } from "react-native";
 
@@ -81,7 +81,7 @@ export function Address(props: Props) {
           renderSectionHeader={({ section }) => (
             <AddressSection title={section.title} />
           )}
-          ItemSeparatorComponent={Divider}
+          ItemSeparatorComponent={Separator}
           ListFooterComponent={renderListFooter}
           showsVerticalScrollIndicator={false}
           onEndReached={handleEndReached}

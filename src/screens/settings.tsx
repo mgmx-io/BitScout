@@ -3,7 +3,7 @@ import { DisplayUnitPickerSheet } from "@/components/display-unit-picker-sheet";
 import Icon from "@/components/icon";
 import { usePreferencesStore } from "@/stores/preferences";
 import { Feedback } from "@/utils";
-import { Divider } from "heroui-native";
+import { Separator } from "heroui-native";
 import { useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
@@ -43,7 +43,7 @@ export function Settings() {
           />
         </View>
       </TouchableOpacity>
-      <Divider />
+      <Separator />
       <TouchableOpacity
         onPress={handleDisplayUnitPress}
         className="flex-row items-center justify-between px-2 py-4"

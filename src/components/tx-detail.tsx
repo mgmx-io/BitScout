@@ -1,7 +1,7 @@
 import { useGetTx } from "@/api/queries";
 import { Feedback, formatDate } from "@/utils";
 import * as Clipboard from "expo-clipboard";
-import { Divider, useToast } from "heroui-native";
+import { Separator, useToast } from "heroui-native";
 import { Linking, Text, TouchableOpacity, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
 import Icon from "./icon";
@@ -96,21 +96,21 @@ export function TxDetail(props: Props) {
                   {statusLabel}
                 </Text>
               </View>
-              <Divider />
+              <Separator />
               <View className="flex-row items-center justify-between">
                 <Text className="text-muted text-xs">Confirmed at</Text>
                 <Text className="text-foreground text-sm font-semibold">
                   {blockTimeLabel}
                 </Text>
               </View>
-              <Divider />
+              <Separator />
               <View className="flex-row items-center justify-between">
                 <Text className="text-muted text-xs">Fee</Text>
                 <Text className="text-foreground text-sm font-semibold">
                   {feeLabel}
                 </Text>
               </View>
-              <Divider />
+              <Separator />
               <View className="flex-row items-center justify-between">
                 <Text className="text-muted text-xs">Size</Text>
                 <Text className="text-foreground text-sm font-semibold">

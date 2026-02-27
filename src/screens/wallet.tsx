@@ -10,7 +10,7 @@ import { FullAddress } from "@/types/misc";
 import { sortAddresses } from "@/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { LinearGradient } from "expo-linear-gradient";
-import { Divider, ScrollShadow } from "heroui-native";
+import { ScrollShadow, Separator } from "heroui-native";
 import { useCallback } from "react";
 import { ListRenderItem, SectionList, View } from "react-native";
 
@@ -52,7 +52,7 @@ export function Wallet() {
         renderItem={renderItem}
         ListHeaderComponent={WalletHeader}
         renderSectionHeader={() => <WalletSection />}
-        ItemSeparatorComponent={Divider}
+        ItemSeparatorComponent={Separator}
         refreshing={false}
         onRefresh={refresh}
       />

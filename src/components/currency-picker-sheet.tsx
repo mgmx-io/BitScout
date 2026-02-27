@@ -1,5 +1,5 @@
 import { usePreferencesStore } from "@/stores/preferences";
-import { FiatCurrency } from "@/types/misc";
+import { FiatCurrency } from "@/types/api";
 import { Feedback } from "@/utils";
 import { Text, View } from "react-native";
 import { BottomSheet } from "./bottom-sheet";
