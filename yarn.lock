@@ -4528,10 +4528,10 @@ hermes-parser@0.33.3:
   dependencies:
     hermes-estree "0.33.3"
 
-heroui-native@^1.0.0-beta.10:
-  version "1.0.0-beta.10"
-  resolved "https://registry.yarnpkg.com/heroui-native/-/heroui-native-1.0.0-beta.10.tgz#e8149a746af98599abcaed9e72ef4374f9bd9c2f"
-  integrity sha512-8mH0fwV7yEbR1u5+nBvgmJ73PGq4DsUhVUHNfw5/op8Lq7Ia5y635lSDvri/wsAHQ7KJvWj5GhhOeCJwSfWHFw==
+heroui-native@^1.0.0-rc.3:
+  version "1.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/heroui-native/-/heroui-native-1.0.0-rc.3.tgz#3428e5de799b0657edf4a13a7c237065ae0541b3"
+  integrity sha512-UjQCUrNjpuWJva8rmqxB9rUw3Man/el4hYJVIMc5zLazEQU3gw22yGUSPvNcque96PUtdeKKngQnkjJytcbRpw==
 
 hoist-non-react-statics@^3.3.0:
   version "3.3.2"

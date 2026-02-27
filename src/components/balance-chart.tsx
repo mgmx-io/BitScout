@@ -5,6 +5,7 @@ import { satsToBtc, satsToFiat } from "@/utils";
 import { LinearGradient, Path, vec } from "@shopify/react-native-skia";
 import { Big } from "big.js";
 import { useThemeColor } from "heroui-native";
+import { Fragment } from "react";
 import { View } from "react-native";
 import type { ChartPressState, PointsArray } from "victory-native";
 import {
@@ -110,7 +111,7 @@ export function BalanceChart({
         }}
       >
         {({ points, chartBounds }) => (
-          <>
+          <Fragment>
             <AnimatedArea
               points={points.value}
               y0={chartBounds.bottom}
@@ -124,7 +125,7 @@ export function BalanceChart({
                 color={primary}
               />
             )}
-          </>
+          </Fragment>
         )}
       </CartesianChart>
     </View>
