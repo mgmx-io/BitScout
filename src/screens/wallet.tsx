@@ -5,10 +5,10 @@ import { TrackAddress } from "@/components/track-address";
 import { WalletEmpty } from "@/components/wallet-empty";
 import { WalletHeader } from "@/components/wallet-header";
 import { WalletSection } from "@/components/wallet-section";
+import { useWalletRefresh } from "@/hooks/use-wallet-refresh";
 import { usePreferencesStore } from "@/stores/preferences";
 import { FullAddress } from "@/types/misc";
 import { sortAddresses } from "@/utils";
-import { useQueryClient } from "@tanstack/react-query";
 import { LinearGradient } from "expo-linear-gradient";
 import { ScrollShadow, Separator } from "heroui-native";
 import { useCallback } from "react";
@@ -16,7 +16,7 @@ import { ListRenderItem, SectionList, View } from "react-native";
 
 export function Wallet() {
   const { sortField, sortOrder } = usePreferencesStore();
-  const queryClient = useQueryClient();
+  const { refresh, refreshing } = useWalletRefresh();
   const addresses = useGetAddresses();
   const sorted = sortAddresses(addresses, sortField, sortOrder);
   const sections = [{ data: sorted }];
@@ -30,13 +30,6 @@ export function Wallet() {
     ),
     [],
   );
-
-  const refresh = useCallback(async () => {
-    await Promise.all([
-      queryClient.invalidateQueries({ queryKey: ["prices"] }),
-      queryClient.invalidateQueries({ queryKey: ["addresses"] }),
-    ]);
-  }, [queryClient]);
 
   let render;
 
@@ -53,7 +46,7 @@ export function Wallet() {
         ListHeaderComponent={WalletHeader}
         renderSectionHeader={() => <WalletSection />}
         ItemSeparatorComponent={Separator}
-        refreshing={false}
+        refreshing={refreshing}
         onRefresh={refresh}
       />
     );
