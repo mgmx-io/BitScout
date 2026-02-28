@@ -1,12 +1,14 @@
 const { defineConfig } = require("eslint/config");
-const expoConfig = require("eslint-config-expo/flat");
-const eslintPluginPrettierRecommended = require("eslint-plugin-prettier/recommended");
-const pluginQuery = require("@tanstack/eslint-plugin-query");
+const expo = require("eslint-config-expo/flat");
+const prettier = require("eslint-plugin-prettier/recommended");
+const tanstack = require("@tanstack/eslint-plugin-query");
+const jest = require("eslint-plugin-jest");
 
 module.exports = defineConfig([
-  expoConfig,
-  eslintPluginPrettierRecommended,
-  ...pluginQuery.configs["flat/recommended"],
+  expo,
+  prettier,
+  jest,
+  ...tanstack.configs["flat/recommended"],
   {
     ignores: ["dist/*"],
     rules: {
